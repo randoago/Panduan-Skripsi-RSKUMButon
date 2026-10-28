@@ -205,9 +205,9 @@ def build_styles(p, default_xml):
     text_w = 11906 - p["margin"]["l"] - p["margin"]["r"]
     add(para_style("TOC1", "toc 1", "Normal", nxt="Normal", ppr=tabs(text_w) + spacing(120, 0, 240), rpr="<w:b/>"))
     add(para_style("TOC2", "toc 2", "Normal", nxt="Normal",
-                   ppr=tabs(text_w, '<w:tab w:val="left" w:pos="720"/>') + spacing(40, 0, 240) + '<w:ind w:left="0"/>'))
+                   ppr=tabs(text_w, '<w:tab w:val="left" w:pos="1000"/>') + spacing(40, 0, 240) + '<w:ind w:left="340"/>'))   # level 2: menjorok 0,6 cm
     add(para_style("TOC3", "toc 3", "Normal", nxt="Normal",
-                   ppr=tabs(text_w, '<w:tab w:val="left" w:pos="1600"/>') + spacing(40, 0, 240) + '<w:ind w:left="720"/>'))
+                   ppr=tabs(text_w, '<w:tab w:val="left" w:pos="1800"/>') + spacing(40, 0, 240) + '<w:ind w:left="1000"/>'))   # level 3: menjorok 1,8 cm
 
     # keterangan tabel / gambar
     add(para_style("TableCaption", "Table Caption", "Normal", nxt="Normal", custom=True,
