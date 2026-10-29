@@ -7,13 +7,13 @@ Semua dokumen ditulis dalam **LaTeX** dan dapat dibuat sebagai **PDF** maupun **
 
 | Dokumen | Sumber | Isi |
 | --- | --- | --- |
-| Pedoman Penulisan Skripsi | `pedoman/pedoman.pdf` (hanya PDF) | Bab I–V dan 7 lampiran (contoh, daftar periksa, gaya APA) |
-| Template Proposal Skripsi | `proposal/proposal.tex` + `bab/` | sampul, persetujuan, abstrak, daftar isi, Bab I–III (jadwal pelaksanaan di Bab III), daftar pustaka |
-| Format Seminar Hasil | `seminar-hasil/seminar-hasil.tex` + `bab/` | Bab I–V, daftar pustaka, lampiran; daftar isi/tabel/gambar/lampiran |
-| Format Skripsi | `skripsi/skripsi.tex` + `bab/` | seminar hasil + pengesahan, pernyataan keaslian, abstrak, kata pengantar |
-| Formulir Pengajuan Judul | `formulir/formulir.tex` | tiga usulan judul (tabel kotak penuh, satu halaman per usulan) + halaman verifikasi |
-| **Contoh terisi** | `contoh/` | proposal, seminar hasil, dan skripsi yang sudah berisi (data fiktif) beserta PDF/Word-nya |
-| Panduan LaTeX | `panduan/panduan-latex.md` (+ `.pdf`, `.docx`) | cara memakai, mengedit, dan mengonversi; analisis kesesuaian dokumen asli (bagian 14) |
+| Pedoman Penulisan Skripsi | `00-pedoman/pedoman.pdf` (hanya PDF) | Bab I–V dan 7 lampiran (contoh, daftar periksa, gaya APA) |
+| Template Proposal Skripsi | `02-proposal/proposal.tex` + `bab/` | sampul, persetujuan, abstrak, daftar isi, Bab I–III (jadwal pelaksanaan di Bab III), daftar pustaka |
+| Format Seminar Hasil | `03-seminar-hasil/seminar-hasil.tex` + `bab/` | Bab I–V, daftar pustaka, lampiran; daftar isi/tabel/gambar/lampiran |
+| Format Skripsi | `04-skripsi/skripsi.tex` + `bab/` | seminar hasil + pengesahan, pernyataan keaslian, abstrak, kata pengantar |
+| Formulir Pengajuan Judul | `01-formulir/formulir.tex` | tiga usulan judul (tabel kotak penuh, satu halaman per usulan) + halaman verifikasi |
+| **Contoh terisi** | `00-contoh/` | proposal, seminar hasil, dan skripsi yang sudah berisi (data fiktif) beserta PDF/Word-nya |
+| Panduan LaTeX | `00-panduan/panduan-latex.md` (+ `.pdf`, `.docx`) | cara memakai, mengedit, dan mengonversi; analisis kesesuaian dokumen asli (bagian 14) |
 
 ## Aturan format yang sudah tertanam
 
@@ -34,34 +34,38 @@ Semua dokumen ditulis dalam **LaTeX** dan dapat dibuat sebagai **PDF** maupun **
 ./menu.sh pdf proposal         # PDF
 ./menu.sh word skripsi         # Word
 ./menu.sh semua semua          # PDF + Word semua template
-./menu.sh semua contoh         # PDF + Word tiga dokumen contoh -> contoh/hasil/
+./menu.sh semua contoh         # PDF + Word tiga dokumen contoh -> 00-contoh/output/
 ./menu.sh peran                # atur pembimbing, penguji, ketua prodi, dekan
 ./menu.sh buka proposal | bersih | cek
 ```
 
 Dokumen yang dapat dipilih: `proposal`, `formulir`, `seminar-hasil`, `skripsi`, `semua` (template), `contoh` (tiga dokumen contoh; atau satu per satu: `contoh-proposal`, `contoh-hasil`, `contoh-skripsi`).
-Hasil ada di `hasil/` (dokumen contoh di `contoh/hasil/`). Perlu: `xelatex`, `latexmk`, `pandoc`, `python3` (`./menu.sh cek`).
+Hasil ada di `00-output/` (dokumen contoh di `00-contoh/output/`). Perlu: `xelatex`, `latexmk`, `pandoc`, `python3` (`./menu.sh cek`).
 
-**Dosen dan peran:** daftar dosen ada di `common/dosen.tex`; peran (Pembimbing I/II, Penguji I/II, Ketua Prodi, Dekan) diatur sekali di `common/peran.tex` atau lewat `./menu.sh peran`, lalu otomatis dipakai di semua dokumen.
+**Dosen dan peran:** daftar dosen ada di `00-common/dosen.tex`; peran (Pembimbing I/II, Penguji I/II, Ketua Prodi, Dekan) diatur sekali di `00-common/peran.tex` atau lewat `./menu.sh peran`, lalu otomatis dipakai di semua dokumen.
 
 ## Struktur
 
 ```text
-common/      gaya bersama: skripsi.sty, skripsi-bab.sty, dosen.tex, peran.tex, atur_peran.py
-proposal/  seminar-hasil/  skripsi/  formulir/    sumber dokumen (isi per bab di bab/)
-pedoman/     hanya pedoman.pdf (sumber LaTeX pedoman tidak dibagikan)
-contoh/      dokumen contoh terisi (proposal, seminar-hasil, skripsi), gambar/, hasil/
-panduan/     panduan penggunaan LaTeX
-word/        buat_word.py (pembuat Word) dan filter.lua (filter pandoc)
-gambar/      logo dan gambar contoh
-hasil/       keluaran PDF/Word
+# 00 = bukan tahapan skripsi; 01 sampai 04 = tahapan, berurutan
+00-panduan/         panduan penggunaan LaTeX
+00-pedoman/         hanya pedoman.pdf (sumber LaTeX pedoman tidak dibagikan)
+00-contoh/          dokumen contoh terisi (proposal, seminar-hasil, skripsi), gambar/, output/
+00-output/          keluaran PDF/Word
+00-common/          gaya bersama: skripsi.sty, skripsi-bab.sty, dosen.tex, peran.tex, atur_peran.py
+00-gambar/          logo dan gambar contoh
+00-word/            buat_word.py (pembuat Word) dan filter.lua (filter pandoc)
+01-formulir/        tahap 1: formulir pengajuan judul
+02-proposal/        tahap 2: template proposal
+03-seminar-hasil/   tahap 3: format seminar hasil
+04-skripsi/         tahap 4: format skripsi   (isi per bab di bab/)
 ```
 
 Tambah bab baru: buat `bab/NN-nama.tex`, lalu `\input{bab/NN-nama}` di berkas utama.
 
 ## Catatan
 
-- **Data pada `contoh/` fiktif** (nama, NPM, angka hasil, peran dosen) dan hanya memperagakan format.
+- **Data pada `00-contoh/` fiktif** (nama, NPM, angka hasil, peran dosen) dan hanya memperagakan format.
 - Daftar isi, daftar tabel, daftar gambar, dan daftar lampiran di Word berupa field: pilih **Yes/Ya** saat Word menawarkan memperbarui field (atau Ctrl+A, F9).
 - Edit isi hanya di file `.tex`; PDF dan Word dibuat ulang dari sumber yang sama.
 - Hindari `>{\centering}p{..}` di tabel (pandoc menghilangkan isi sel); pakai `c` atau `p{..}`.

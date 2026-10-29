@@ -8,10 +8,10 @@
 set -u
 cd "$(dirname "$0")"
 ROOT="$(pwd)"
-export TEXINPUTS="$ROOT/common//:${TEXINPUTS:-}"
+export TEXINPUTS="$ROOT/00-common//:${TEXINPUTS:-}"
 
 DOKUMEN=(proposal formulir seminar-hasil skripsi)   # Pedoman: hanya PDF (pedoman/pedoman.pdf), sumbernya tidak dibagikan
-CONTOH=(contoh-proposal contoh-hasil contoh-skripsi)   # dokumen contoh terisi (folder contoh/)
+CONTOH=(contoh-proposal contoh-hasil contoh-skripsi)   # dokumen contoh terisi (folder 00-contoh/)
 # (macOS memakai bash 3.2: tanpa array asosiatif)
 judul() {
   case "$1" in
@@ -25,10 +25,12 @@ judul() {
     contoh-skripsi) echo "CONTOH Skripsi (terisi)";;
   esac
 }
-# folder sumber, nama berkas, dan folder hasil tiap dokumen (dokumen contoh ada di contoh/)
-dirdok()  { case "$1" in contoh-proposal) echo contoh/proposal;; contoh-hasil) echo contoh/seminar-hasil;; contoh-skripsi) echo contoh/skripsi;; *) echo "$1";; esac; }
-berkas()  { basename "$(dirdok "$1")"; }
-hasildir(){ case "$1" in contoh-*) echo contoh/hasil;; *) echo hasil;; esac; }
+# folder sumber, nama berkas, dan folder output tiap dokumen (dokumen contoh ada di 00-contoh/)
+dirdok()  { case "$1" in contoh-proposal) echo 00-contoh/proposal;; contoh-hasil) echo 00-contoh/seminar-hasil;; contoh-skripsi) echo 00-contoh/skripsi;;
+                         pedoman) echo 00-pedoman;; formulir) echo 01-formulir;; proposal) echo 02-proposal;; seminar-hasil) echo 03-seminar-hasil;; skripsi) echo 04-skripsi;;
+                         *) echo "$1";; esac; }
+berkas()  { basename "$(dirdok "$1")" | sed 's/^[0-9][0-9]-//'; }   # nama berkas = nama folder tanpa nomor
+hasildir(){ case "$1" in contoh-*) echo 00-contoh/output;; *) echo 00-output;; esac; }
 
 # ---------- tampilan ----------
 if [ -t 1 ]; then B=$'\033[1m'; G=$'\033[32m'; R=$'\033[31m'; Y=$'\033[33m'; N=$'\033[0m'; else B=; G=; R=; Y=; N=; fi
@@ -69,7 +71,7 @@ buat_word() {  # $1 = nama dokumen
   b=$(berkas "$d"); h=$(hasildir "$d")
   info "Word ← $d  ($(judul "$d"))"
   mkdir -p "$ROOT/$h"
-  if python3 "$ROOT/word/buat_word.py" "$d" -o "$ROOT/$h/$b.docx" >/dev/null 2>"$ROOT/build/$d-word.log"; then
+  if python3 "$ROOT/00-word/buat_word.py" "$d" -o "$ROOT/$h/$b.docx" >/dev/null 2>"$ROOT/build/$d-word.log"; then
     ok "$h/$b.docx"
     [ "$d" = pedoman ] && info "Buka di Word lalu pilih 'Yes/Ya' bila diminta memperbarui field (agar Daftar Isi terisi)."
   else
@@ -100,10 +102,10 @@ buka_hasil() {  # $1 = dokumen
 
 bersih() {
   for d in "${DOKUMEN[@]}" "${CONTOH[@]}"; do
-    ( cd "$ROOT/$(dirdok "$d")" && b=$(basename "$PWD") && latexmk -C >/dev/null 2>&1; rm -f "$b.xdv" "$b.toc" )
+    ( cd "$ROOT/$(dirdok "$d")" && b=$(basename "$PWD" | sed 's/^[0-9][0-9]-//') && latexmk -C >/dev/null 2>&1; rm -f "$b.xdv" "$b.toc" )
   done
   rm -rf "$ROOT/build"
-  ok "berkas sementara dihapus (folder hasil/ dibiarkan)"
+  ok "berkas sementara dihapus (folder 00-output/ dibiarkan)"
 }
 
 # ---------- pilih dokumen ----------
@@ -115,7 +117,7 @@ pilih_dokumen() {
   echo "  3) $(judul seminar-hasil)" >&2
   echo "  4) $(judul skripsi)" >&2
   echo "  5) Semua dokumen (template)" >&2
-  echo "  6) CONTOH terisi: proposal, seminar hasil, skripsi (folder contoh/)" >&2
+  echo "  6) CONTOH terisi: proposal, seminar hasil, skripsi (folder 00-contoh/)" >&2
   read -r -p "Nomor [5]: " n
   case "${n:-5}" in
     1) echo proposal;; 2) echo formulir;; 3) echo seminar-hasil;; 4) echo skripsi;; 5) echo semua;; 6) echo contoh;;
@@ -136,7 +138,7 @@ if [ $# -ge 1 ]; then
             else buka_hasil "$dok"; fi;;
     bersih) bersih;;
     cek)    cek_alat;;
-    peran)  python3 "$ROOT/common/atur_peran.py";;
+    peran)  python3 "$ROOT/00-common/atur_peran.py";;
     *) echo "aksi tidak dikenal: $aksi  (pdf|word|semua|buka|bersih|cek)"; exit 2;;
   esac
   exit $?
@@ -149,7 +151,7 @@ while true; do
   echo "  1) Buat PDF            (LaTeX → PDF)"
   echo "  2) Convert ke Word     (LaTeX → .docx)"
   echo "  3) Buat PDF + Word"
-  echo "  4) Buka hasil          (hasil/*.docx, hasil/*.pdf)"
+  echo "  4) Buka hasil          (00-output/*.docx, 00-output/*.pdf)"
   echo "  5) Cek alat yang dibutuhkan"
   echo "  6) Bersihkan berkas sementara"
   echo "  7) Atur dosen / peran  (pembimbing, penguji, ketua prodi, dekan)"
@@ -162,7 +164,7 @@ while true; do
     4) d=$(pilih_dokumen); if [ "$d" = semua ]; then for x in "${DOKUMEN[@]}"; do buka_hasil "$x"; done; elif [ "$d" = contoh ]; then for x in "${CONTOH[@]}"; do buka_hasil "$x"; done; else buka_hasil "$d"; fi;;
     5) cek_alat;;
     6) bersih;;
-    7) python3 "$ROOT/common/atur_peran.py";;
+    7) python3 "$ROOT/00-common/atur_peran.py";;
     0|q|Q) echo "Sampai jumpa."; exit 0;;
     *) gagal "pilihan tidak dikenal";;
   esac
