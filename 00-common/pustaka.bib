@@ -1,0 +1,197 @@
+% =====================================================================
+%  pustaka.bib -- basis data pustaka (dibaca biblatex + biber; gaya APA edisi ke-7)
+%  Satu berkas dipakai bersama oleh proposal, seminar hasil, dan skripsi.
+%  Di naskah, sumber dipanggil dengan kunci (key) di bawah ini:
+%      \parencite{kunci}   ->  (Penulis, 2020)
+%      \textcite{kunci}    ->  Penulis (2020)
+%  Daftar pustaka di akhir dokumen hanya memuat sumber yang dikutip.
+%  Entri di bawah adalah CONTOH berbagai jenis sumber; ganti dengan sumber Anda.
+%  Mendeley/Zotero dapat mengekspor berkas .bib (BibLaTeX) untuk ditempel di sini.
+% =====================================================================
+
+% ---------- artikel jurnal ----------
+@article{capozzi2013,
+  author       = {Capozzi, Francesco and Piro, Giuseppe and Grieco, Luigi Alfredo and Boggia, Gennaro and Camarda, Pietro},
+  title        = {Downlink packet scheduling in {LTE} cellular networks: Key design issues and a survey},
+  journaltitle = {IEEE Communications Surveys \& Tutorials},
+  date         = {2013},
+  volume       = {15},
+  number       = {2},
+  pages        = {678--700},
+}
+
+@article{andrews2007,
+  author       = {Andrews, Matthew},
+  title        = {A survey of scheduling theory in wireless data networks},
+  journaltitle = {Wireless Communications},
+  date         = {2007},
+  volume       = {143},
+  pages        = {1--17},
+}
+
+@article{radiati2000,
+  author       = {Radiati, Lilis Endah},
+  title        = {Penghambatan bakteri enteropatogen oleh ekstrak jahe},
+  journaltitle = {Jurnal Habitat},
+  date         = {2000},
+  volume       = {12},
+  number       = {2},
+  pages        = {81--91},
+  langid       = {indonesian},
+}
+
+% artikel jurnal dengan DOI: DOI cukup, tanpa tanggal akses
+@article{penulis2024,
+  author       = {Penulis, Carlos D.},
+  title        = {Judul artikel jurnal dengan {DOI}},
+  journaltitle = {Jurnal Teknologi dan Sistem Komputer},
+  date         = {2024},
+  volume       = {12},
+  number       = {1},
+  pages        = {45--58},
+  doi          = {10.xxxx/xxxxx},
+  langid       = {indonesian},
+}
+
+% ---------- prosiding ----------
+@inproceedings{alqahtani2013,
+  author       = {AlQahtani, Sultan A. and Alhassany, Mohammed},
+  title        = {Comparing different {LTE} scheduling schemes},
+  booktitle    = {2013 9th International Wireless Communications and Mobile Computing Conference ({IWCMC})},
+  date         = {2013},
+  pages        = {264--269},
+}
+
+@inproceedings{xu2012,
+  author       = {Xu, Yu and Fischione, Carlo},
+  title        = {Real-time scheduling in {LTE} for smart grids},
+  booktitle    = {Proceedings of the 5th International Symposium on Communications, Control and Signal Processing},
+  date         = {2012},
+  pages        = {2--4},
+}
+
+% ---------- buku ----------
+@book{ghosh2010,
+  author       = {Ghosh, Arunabha and Zhang, Jun and Andrews, Jeffrey G. and Muhamed, Rias},
+  title        = {Fundamentals of {LTE}},
+  date         = {2010},
+  publisher    = {Prentice Hall},
+}
+
+@book{dahlman2011,
+  author       = {Dahlman, Erik and Parkvall, Stefan and Sk{\"o}ld, Johan},
+  title        = {4G: {LTE}/{LTE}-Advanced for mobile broadband},
+  date         = {2011},
+  publisher    = {Academic Press},
+}
+
+@book{jain1991,
+  author       = {Jain, Raj K.},
+  title        = {The art of computer systems performance analysis: Techniques for experimental design, measurement, simulation, and modeling},
+  date         = {1991},
+  publisher    = {John Wiley \& Sons},
+}
+
+% buku terjemahan: tulis penulis aslinya, penerjemah di field translator
+@book{gaman1994,
+  author       = {Gaman, P. M. and Sherrington, K. B.},
+  translator   = {Gardjito, M. and Naruki, S. and {Murdiati} and {Sardjono}},
+  title        = {Ilmu pangan},
+  date         = {1994},
+  publisher    = {Gadjah Mada University Press},
+  langid       = {indonesian},
+}
+
+% buku dengan lembaga sebagai penulis
+@book{bps1997,
+  author       = {{Badan Pusat Statistik}},
+  title        = {Statistik Indonesia 1996},
+  date         = {1997},
+  publisher    = {Badan Pusat Statistik},
+  langid       = {indonesian},
+}
+
+% buku tanpa penulis: urut dan dikutip berdasarkan judul
+@book{panduan2020,
+  title        = {Panduan penulisan karya ilmiah},
+  date         = {2020},
+  publisher    = {Penerbit Universitas},
+  langid       = {indonesian},
+}
+
+% bab dalam buku suntingan
+@incollection{penulis2020,
+  author       = {Penulis, A.},
+  editor       = {Editor, B. and Editor, C.},
+  title        = {Judul bab dalam buku suntingan},
+  booktitle    = {Judul buku suntingan},
+  date         = {2020},
+  pages        = {10--25},
+  publisher    = {Penerbit},
+  langid       = {indonesian},
+}
+
+% ---------- skripsi / tesis ----------
+@thesis{penulis2022,
+  author       = {Penulis, A. B.},
+  title        = {Judul skripsi atau tesis},
+  type         = {mathesis},   % tampil sebagai [Skripsi, institusi]
+  institution  = {Universitas Muhammadiyah Buton},
+  date         = {2022},
+  url          = {https://repository.example.ac.id/contoh},
+  langid       = {indonesian},
+}
+
+% ---------- laporan lembaga, lembar data ----------
+@report{espressif2023,
+  author       = {{Espressif Systems}},
+  title        = {{ESP32-WROOM-32} datasheet},
+  titleaddon   = {Lembar data},
+  edition      = {Versi 3.3},
+  date         = {2023},
+  url          = {https://www.espressif.com/en/support/documents/technical-documents},
+  langid       = {indonesian},
+}
+
+@report{komdigi2025,
+  author       = {{Kementerian Komunikasi dan Digital}},
+  title        = {Judul laporan tahunan},
+  titleaddon   = {Laporan},
+  date         = {2025},
+  url          = {https://www.komdigi.go.id/contoh-laporan.pdf},
+  urldate      = {2026-10-21},
+  langid       = {indonesian},
+}
+
+% ---------- sumber daring: wajib urldate (tanggal akses) ----------
+@article{penulis2026,
+  author       = {Penulis, E.},
+  title        = {Judul artikel berita atau blog},
+  journaltitle = {Nama Situs},
+  entrysubtype = {nonacademic},
+  date         = {2026-03-05},
+  url          = {https://www.contoh.com/artikel},
+  urldate      = {2026-10-21},
+  langid       = {indonesian},
+}
+
+% tanpa tahun terbit: kosongkan date; akan tertulis (t.t.)
+@online{ns3,
+  author       = {{ns-3 Consortium}},
+  title        = {ns-3 network simulator},
+  url          = {https://www.nsnam.org},
+  urldate      = {2026-10-21},
+  langid       = {indonesian},
+}
+
+% ---------- kode sumber di repositori ----------
+@software{penulis2024kode,
+  author       = {Penulis, F.},
+  title        = {Nama repositori},
+  titleaddon   = {Kode sumber},
+  publisher    = {GitHub},
+  date         = {2024},
+  url          = {https://github.com/pengguna/repositori},
+  urldate      = {2026-10-21},
+  langid       = {indonesian},
+}

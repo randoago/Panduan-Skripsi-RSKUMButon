@@ -182,6 +182,9 @@ def build_styles(p, default_xml):
                    ppr='%s<w:ind w:left="%d"/>' % (spacing(0, 240, 240), cm(8))))
     add(para_style("DaftarPustaka", "Daftar Pustaka", "Normal", custom=True,
                    ppr='%s%s<w:ind w:left="720" w:hanging="720"/>' % (spacing(0, 240, 240), jb)))
+    # entri daftar pustaka otomatis dari pandoc --citeproc (gaya "Bibliography"): sama dengan Daftar Pustaka
+    add(para_style("Bibliography", "Bibliography", "Normal", nxt="Bibliography",
+                   ppr='%s<w:ind w:left="720" w:hanging="720"/>' % spacing(0, 240, 240)))
     add(para_style("Kotak", "Kotak", "Normal", custom=True, ppr=spacing(0, 60, 276) + jb))
     add(para_style("Isian", "Isian", "Normal", custom=True, ppr="<w:keepNext/>" + spacing(120, 60, 240) + '<w:ind w:left="340"/>'))
     add(para_style("TOCNote", "TOC Note", "Normal", custom=True, ppr=spacing(0, 0, 240)))
@@ -405,7 +408,10 @@ def main():
     cmd = ["pandoc", str(src), "-f", "latex", "-t", "docx", "-o", str(out),
            "--reference-doc", str(ref), "--lua-filter", str(ROOT / "00-word" / "filter.lua"),
            "--resource-path", str(src.parent),
-           "-M", "gaya-bab=%s" % p["gaya_bab"], "-M", "nomor-gambar=%s" % p["nomor_gambar"]]
+           "-M", "gaya-bab=%s" % p["gaya_bab"], "-M", "nomor-gambar=%s" % p["nomor_gambar"],
+           # sitasi dan daftar pustaka APA 7 dari pustaka.bib (sama dengan versi PDF/biblatex)
+           "--citeproc", "--bibliography", str(ROOT / "00-common" / "pustaka.bib"),
+           "--csl", str(ROOT / "00-word" / "apa.csl"), "-M", "lang=id-ID"]
     if p.get("chapter_sections"):
         cmd += ["-M", "bab-seksi=1"]
     # pandoc ikut membaca TEXINPUTS dan akan "membongkar" 00-common/skripsi.sty; matikan agar

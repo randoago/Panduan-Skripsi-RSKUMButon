@@ -11,7 +11,7 @@ Semua dokumen ditulis dalam **LaTeX** dan dapat dibuat sebagai **PDF** maupun **
 | Template Proposal Skripsi | `02-proposal/proposal.tex` + `bab/` | sampul, persetujuan, abstrak, daftar isi, Bab I–III (jadwal pelaksanaan di Bab III), daftar pustaka |
 | Format Seminar Hasil | `03-seminar-hasil/seminar-hasil.tex` + `bab/` | Bab I–V, daftar pustaka, lampiran; daftar isi/tabel/gambar/lampiran |
 | Format Skripsi | `04-skripsi/skripsi.tex` + `bab/` | seminar hasil + pengesahan, pernyataan keaslian, abstrak, kata pengantar |
-| Formulir Pengajuan Judul | `01-formulir/formulir.tex` | tiga usulan judul (tabel kotak penuh, satu halaman per usulan) + halaman verifikasi |
+| Formulir Pengajuan Judul | `01-formulir/formulir.tex` | tiga usulan judul (tabel kotak penuh, dua halaman per usulan, susunan mengikuti Dokumen Pra Proposal SP-01A: identitas penelitian, metode, status usulan, masukan dan tanda tangan calon pembimbing) + halaman verifikasi |
 | **Contoh terisi** | `00-contoh/` | proposal, seminar hasil, dan skripsi yang sudah berisi (data fiktif) beserta PDF/Word-nya |
 | Panduan LaTeX | `00-panduan/panduan-latex.md` (+ `.pdf`, `.docx`) | cara memakai, mengedit, dan mengonversi; analisis kesesuaian dokumen asli (bagian 14) |
 
@@ -24,7 +24,7 @@ Semua dokumen ditulis dalam **LaTeX** dan dapat dibuat sebagai **PDF** maupun **
 | Judul | `BAB I` + judul (14 pt tebal, tengah), tiap bab di halaman baru; subbab sampai tiga tingkat |
 | Nomor halaman | sampul, persetujuan, pengesahan, keaslian: tanpa nomor; abstrak–daftar lampiran: romawi; isi: arab (awal bab tengah bawah, selanjutnya kanan atas) |
 | Tabel / gambar | tabel kotak penuh, judul **di atas** (tengah); gambar, judul **di bawah** (tengah); nomor per bab (Tabel 2.1, Gambar 3.2; lampiran L1.1) |
-| Sitasi | **APA edisi ke-7** (penulis–tahun), daftar pustaka lengkap dengan tanggal akses untuk sumber web |
+| Sitasi | **APA edisi ke-7** (penulis–tahun); sumber dicatat di `00-common/pustaka.bib`, dipanggil dengan `\parencite{kunci}` / `\textcite{kunci}`, daftar pustaka dibuat otomatis (tanggal akses untuk sumber web) |
 | Nama dosen | nama pada lembar persetujuan/pengesahan selalu satu baris |
 
 ## Cara pakai
@@ -33,14 +33,14 @@ Semua dokumen ditulis dalam **LaTeX** dan dapat dibuat sebagai **PDF** maupun **
 ./menu.sh                      # menu interaktif
 ./menu.sh pdf proposal         # PDF
 ./menu.sh word skripsi         # Word
-./menu.sh semua semua          # PDF + Word semua template
+./menu.sh semua semua          # PDF + Word semua dokumen
 ./menu.sh semua contoh         # PDF + Word tiga dokumen contoh -> 00-contoh/output/
 ./menu.sh peran                # atur pembimbing, penguji, ketua prodi, dekan
 ./menu.sh buka proposal | bersih | cek
 ```
 
 Dokumen yang dapat dipilih: `proposal`, `formulir`, `seminar-hasil`, `skripsi`, `semua` (template), `contoh` (tiga dokumen contoh; atau satu per satu: `contoh-proposal`, `contoh-hasil`, `contoh-skripsi`).
-Hasil ada di `00-output/` (dokumen contoh di `00-contoh/output/`). Perlu: `xelatex`, `latexmk`, `pandoc`, `python3` (`./menu.sh cek`).
+Hasil ada di `00-output/` (dokumen contoh di `00-contoh/output/`). Perlu: `xelatex`, `latexmk`, `biber`, `pandoc`, `python3` (`./menu.sh cek`).
 
 **Dosen dan peran:** daftar dosen ada di `00-common/dosen.tex`; peran (Pembimbing I/II, Penguji I/II, Ketua Prodi, Dekan) diatur sekali di `00-common/peran.tex` atau lewat `./menu.sh peran`, lalu otomatis dipakai di semua dokumen.
 
@@ -52,7 +52,7 @@ Hasil ada di `00-output/` (dokumen contoh di `00-contoh/output/`). Perlu: `xelat
 00-pedoman/         hanya pedoman.pdf (sumber LaTeX pedoman tidak dibagikan)
 00-contoh/          dokumen contoh terisi (proposal, seminar-hasil, skripsi), gambar/, output/
 00-output/          keluaran PDF/Word
-00-common/          gaya bersama: skripsi.sty, skripsi-bab.sty, dosen.tex, peran.tex, atur_peran.py
+00-common/          gaya bersama: skripsi.sty, skripsi-bab.sty, skripsi-pustaka.sty, indonesian-apa.lbx, pustaka.bib (daftar sumber), dosen.tex, peran.tex, atur_peran.py
 00-gambar/          logo dan gambar contoh
 00-word/            buat_word.py (pembuat Word) dan filter.lua (filter pandoc)
 01-formulir/        tahap 1: formulir pengajuan judul

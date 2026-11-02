@@ -24,6 +24,9 @@ panduan-skripsi/
 ├── 00-output/               <- keluaran: *.pdf dan *.docx
 ├── 00-common/               <- gaya & data bersama (jarang diubah)
 │   ├── skripsi.sty, skripsi-bab.sty   tata letak
+│   ├── skripsi-pustaka.sty            pengaturan sitasi & daftar pustaka (APA 7)
+│   ├── indonesian-apa.lbx             istilah bahasa Indonesia untuk APA (dan, hlm., t.t.)
+│   ├── pustaka.bib                    DAFTAR SUMBER Anda (satu berkas untuk semua dokumen)
 │   ├── dosen.tex                      daftar dosen
 │   └── peran.tex                      pembimbing/penguji/dst.
 ├── 00-gambar/               <- logo & gambar
@@ -40,7 +43,7 @@ panduan-skripsi/
 
 # 2. Persiapan (sekali saja)
 
-Dibutuhkan empat program. Periksa dengan:
+Dibutuhkan lima program (`biber` ikut terpasang bersama MacTeX). Periksa dengan:
 
 ```bash
 ./menu.sh cek
@@ -48,7 +51,7 @@ Dibutuhkan empat program. Periksa dengan:
 
 | Program | Fungsi | Cara memasang (macOS) |
 |---|---|---|
-| `xelatex`, `latexmk` | membuat PDF | `brew install --cask mactex-no-gui` |
+| `xelatex`, `latexmk`, `biber` | membuat PDF (`biber` menyusun daftar pustaka dari `pustaka.bib`) | `brew install --cask mactex-no-gui` |
 | `pandoc` | konversi ke Word | `brew install pandoc` |
 | `python3` | pendukung konversi Word | bawaan macOS |
 
@@ -82,14 +85,14 @@ Nama dokumen: `proposal`, `formulir`, `seminar-hasil`, `skripsi`, atau `semua`.
 
 ```bash
 cd skripsi
-TEXINPUTS="../common//:" latexmk -xelatex skripsi.tex
+TEXINPUTS="../00-common//:" BIBINPUTS="../00-common//:" latexmk -xelatex skripsi.tex
 ```
 
-`TEXINPUTS` wajib agar LaTeX menemukan gaya di folder `00-common/`.
+`TEXINPUTS` wajib agar LaTeX menemukan gaya di folder `00-common/`; `BIBINPUTS` agar `pustaka.bib` ditemukan. `latexmk` menjalankan `biber` sendiri.
 
 ## Membuat PDF dari editor (VS Code, TeXstudio, dll.)
 
-Tiap folder dokumen sudah berisi berkas `latexmkrc` yang mengatur `TEXINPUTS` dan memilih **XeLaTeX** otomatis. Jadi cukup **buka berkas utama** (`04-skripsi/skripsi.tex`, `02-proposal/proposal.tex`, dst.) lalu tekan tombol *Build* / *Compile*. Tidak perlu mengatur apa pun.
+Tiap folder dokumen sudah berisi berkas `latexmkrc` yang mengatur `TEXINPUTS`/`BIBINPUTS` dan memilih **XeLaTeX** otomatis. Jadi cukup **buka berkas utama** (`04-skripsi/skripsi.tex`, `02-proposal/proposal.tex`, dst.) lalu tekan tombol *Build* / *Compile*. Tidak perlu mengatur apa pun.
 
 - Di **VS Code** pasang ekstensi *LaTeX Workshop*, buka berkas utama, lalu **Ctrl+Alt+B** (Cmd+Option+B). Pengaturan proyek sudah ada di `.vscode/settings.json`.
 - Di **TeXstudio**, pilih *Tools → Commands → LaTeX* menjadi `latexmk` (bukan `pdflatex`) dan buka berkas utama.
@@ -104,8 +107,9 @@ Contoh `04-skripsi/skripsi.tex` (dipersingkat; proposal dan seminar hasil serupa
 \documentclass[12pt,a4paper]{report}
 \usepackage{skripsi}          % font, bahasa, lingkungan khusus
 \usepackage{skripsi-bab}      % margin, spasi, nomor halaman
-\input{../common/dosen}       % data dosen
-\input{../common/peran}       % peran dosen
+\usepackage{skripsi-pustaka}  % sitasi & daftar pustaka APA (dari pustaka.bib)
+\input{../00-common/dosen}       % data dosen
+\input{../00-common/peran}       % peran dosen
 
 \begin{document}
   ... sampul, halaman pengajuan, pengesahan, abstrak, kata pengantar ...
@@ -235,46 +239,98 @@ Di Word, persamaan menjadi objek persamaan yang dapat diedit.
 
 ## 5.8 Sitasi dan daftar pustaka (gaya APA edisi ke-7)
 
-Sitasi di dalam teks ditulis langsung:
+Sitasi dan daftar pustaka **tidak diketik manual**. Alurnya tiga langkah:
 
-- satu penulis: Andrews (2007) atau (Andrews, 2007)
-- dua penulis: (Xu \& Fischione, 2012)  → di LaTeX tulis `(Xu \& Fischione, 2012)`
-- tiga penulis atau lebih: (Capozzi et al., 2013)
+1. **Catat sumber sekali** di berkas `00-common/pustaka.bib` (satu berkas dipakai bersama proposal, seminar hasil, dan skripsi, jadi sumber dari proposal otomatis tersedia lagi di skripsi).
+2. **Panggil sumber di teks** dengan kuncinya (*key*).
+3. **Kompilasi**. `latexmk` menjalankan `biber`, lalu daftar pustaka tersusun otomatis (urut abjad, baris kedua menjorok, hanya sumber yang dikutip). `./menu.sh` juga sudah mengurusnya.
 
-Daftar pustaka memakai lingkungan `pustaka`; **satu paragraf (dipisah baris kosong) = satu pustaka**, diurutkan abjad nama penulis pertama:
+### Memanggil sumber di teks
+
+| Ketik | Hasil | Dipakai untuk |
+|---|---|---|
+| `\parencite{andrews2007}` | (Andrews, 2007) | sitasi di akhir kalimat |
+| `\textcite{andrews2007}` | Andrews (2007) | nama penulis jadi bagian kalimat |
+| `\parencite{xu2012}` | (Xu & Fischione, 2012) | dua penulis, tanda `&` otomatis |
+| `\textcite{xu2012}` | Xu dan Fischione (2012) | dua penulis di dalam kalimat |
+| `\parencite{capozzi2013}` | (Capozzi et al., 2013) | tiga penulis atau lebih |
+| `\parencite{bps1997}` | (Badan Pusat Statistik, 1997) | lembaga sebagai penulis |
+| `\parencite[15]{ghosh2010}` | (Ghosh et al., 2010, hlm. 15) | kutipan langsung dengan halaman |
+| `\parencite{andrews2007,xu2012}` | (Andrews, 2007; Xu & Fischione, 2012) | beberapa sumber (diurutkan abjad otomatis) |
+| `\parencite{panduan2020}` | (*Panduan penulisan karya ilmiah*, 2020) | sumber tanpa penulis |
+
+Contoh kalimat: `Penjadwalan paket berperan penting \parencite{capozzi2013}. \textcite{andrews2007} menyatakan bahwa ...`
+
+Bila kunci salah ketik, di PDF muncul tanda `?` atau `[andrews2007]` dan `biber` memberi peringatan; periksa ejaan kunci di `pustaka.bib`.
+
+### Menulis entri di pustaka.bib
+
+Setiap sumber satu entri: jenis, kunci, lalu field. Contoh buku dan artikel jurnal:
+
+```bibtex
+@book{ghosh2010,
+  author    = {Ghosh, Arunabha and Zhang, Jun and Andrews, Jeffrey G. and Muhamed, Rias},
+  title     = {Fundamentals of {LTE}},
+  date      = {2010},
+  publisher = {Prentice Hall},
+}
+
+@article{capozzi2013,
+  author       = {Capozzi, Francesco and Piro, Giuseppe and Grieco, Luigi Alfredo and Boggia, Gennaro and Camarda, Pietro},
+  title        = {Downlink packet scheduling in {LTE} cellular networks: Key design issues and a survey},
+  journaltitle = {IEEE Communications Surveys \& Tutorials},
+  date         = {2013},
+  volume       = {15},
+  number       = {2},
+  pages        = {678--700},
+}
+```
+
+Aturan penulisan field:
+
+- Beberapa penulis dipisah kata `and`, bentuk `Nama belakang, Nama depan`.
+- Singkatan atau huruf besar yang harus dipertahankan dibungkus kurung kurawal, misalnya `{LTE}`, `{DOI}`; tanpa kurung kurawal, judul dijadikan huruf kecil sesuai aturan APA.
+- Lembaga sebagai penulis diberi kurung kurawal ganda: `author = {{Badan Pusat Statistik}}`.
+- Tanda `&` ditulis `\&`; rentang halaman memakai `--`.
+- Untuk sumber berbahasa Indonesia tambahkan `langid = {indonesian}`.
+- Judul buku/jurnal dicetak miring otomatis; Anda tidak perlu `\textit`.
+- Mendeley atau Zotero dapat mengekspor seluruh koleksi ke format **BibLaTeX** (`.bib`); tempel hasilnya ke `pustaka.bib`. Rapikan kuncinya agar mudah diingat (misalnya `penulis2020`).
+
+**Contoh untuk berbagai jenis sumber** (semuanya ada di `pustaka.bib`; hapus yang tidak dipakai):
+
+| Jenis | Jenis entri | Field penting |
+|---|---|---|
+| Buku | `@book` | author, title, date, publisher |
+| Buku terjemahan | `@book` | author (penulis asli), `translator`, title, date, publisher |
+| Bab dalam buku suntingan | `@incollection` | author, editor, title, booktitle, date, pages, publisher |
+| Artikel jurnal | `@article` | author, title, journaltitle, date, volume, number, pages, `doi` |
+| Prosiding | `@inproceedings` | author, title, booktitle, date, pages |
+| Skripsi/tesis | `@thesis` | author, title, `type = {mathesis}`, institution, date, url |
+| Laporan lembaga | `@report` | author (lembaga), title, `titleaddon = {Laporan}`, date, url, urldate |
+| Lembar data | `@report` | author (produsen), title, `titleaddon = {Lembar data}`, `edition = {Versi 3.3}`, date, url |
+| Artikel berita/blog | `@article` | author, title, `journaltitle` (nama situs), `entrysubtype = {nonacademic}`, date (`2026-03-05`), url, urldate |
+| Situs web | `@online` | author/lembaga, title, url, urldate |
+| Kode di repositori | `@software` | author, title, `titleaddon = {Kode sumber}`, publisher (GitHub), date, url, urldate |
+| Tanpa penulis | `@book` | title, date, publisher (tanpa author) |
+
+**Sumber web wajib mencantumkan tanggal akses**, yaitu hari saat sumber dibuka, karena isinya bisa berubah. Isi field `urldate` dengan format `2026-10-21`; daftar pustaka otomatis menulis *Diakses pada 21 Oktober 2026, dari alamat*. Artikel jurnal dengan DOI tidak perlu tanggal akses. Bila tahun tidak diketahui, kosongkan `date`; otomatis tertulis (t.t.).
+
+### Di berkas daftar pustaka
+
+Berkas `bab/04-daftar-pustaka.tex` (proposal) atau `bab/06-daftar-pustaka.tex` (seminar hasil, skripsi) cukup memuat:
 
 ```latex
 \babtp{DAFTAR PUSTAKA}
-\begin{pustaka}
-Andrews, M. (2007). A survey of scheduling theory in wireless data networks.
-\textit{Wireless Communications, 143}, 1--17.
-
-Ghosh, A., Zhang, J., Andrews, J. G., \& Muhamed, R. (2010).
-\textit{Fundamentals of LTE}. Prentice Hall.
-\end{pustaka}
+\begin{daftarpustaka}
+\printbibliography[heading=none]
+\end{daftarpustaka}
 ```
 
-Judul buku/jurnal diberi cetak miring. Tanda `&` ditulis `\&`. Alamat web ditulis dengan `\url{...}`.
+Pada template, berkas ini juga berisi penjelasan dan baris `\nocite{...}` agar semua jenis contoh tampil. **Hapus penjelasan dan baris `\nocite` itu pada naskah Anda**, sehingga daftar pustaka hanya memuat sumber yang benar-benar dikutip. Untuk memaksa satu sumber tampil tanpa dikutip, gunakan `\nocite{kunci}`.
 
-**Contoh untuk berbagai jenis sumber** (lengkapnya ada di berkas daftar pustaka tiap dokumen, `bab/05-` atau `bab/06-daftar-pustaka.tex`; hapus yang tidak dipakai):
+### Di Word
 
-| Jenis | Pola |
-|---|---|
-| Buku | Penulis, A. (Tahun). *Judul buku*. Penerbit. |
-| Buku terjemahan | Penulis, A. (Tahun). *Judul* (B. Penerjemah, Penerj.). Penerbit. |
-| Bab dalam buku suntingan | Penulis, A. (Tahun). Judul bab. Dalam B. Editor (Ed.), *Judul buku* (hlm. 10--25). Penerbit. |
-| Artikel jurnal | Penulis, A. (Tahun). Judul artikel. *Nama Jurnal, vol*(no), hlm--hlm. `\url{https://doi.org/...}` |
-| Prosiding | Penulis, A. (Tahun). Judul makalah. *Nama Prosiding*, hlm--hlm. |
-| Skripsi/tesis | Penulis, A. (Tahun). *Judul* [Skripsi, Nama Universitas]. Repositori. `\url{...}` |
-| Laporan lembaga | Nama Lembaga. (Tahun). *Judul laporan*. Penerbit. |
-| Lembar data / standar | Produsen. (Tahun). *Judul datasheet* (Versi x) [Lembar data]. `\url{...}` |
-| Artikel daring | Penulis/Lembaga. (Tahun, tanggal). *Judul halaman*. Nama Situs. **Diakses pada 21 Oktober 2026, dari** `\url{...}` |
-| Kode di repositori | Penulis. (Tahun). *Nama repo* [Kode sumber]. GitHub. **Diakses pada ..., dari** `\url{...}` |
-| Tanpa penulis | *Judul*. (Tahun). Penerbit. |
-
-**Sumber web wajib mencantumkan tanggal akses**, yaitu hari saat sumber dibuka, karena isinya bisa berubah. Tulis di akhir entri: `Diakses pada 21 Oktober 2026, dari \url{...}`. Artikel jurnal dengan DOI tidak perlu tanggal akses. Bila tahun tidak diketahui tulis `(t.t.)`.
-
-Bentuk sitasi di dalam teks: Andrews (2007); (Xu \& Fischione, 2012); (Capozzi et al., 2013); (Badan Pusat Statistik, 1997); kutipan langsung dengan halaman (Ghosh et al., 2010, hlm. 15).
+`./menu.sh word ...` memakai `pustaka.bib` yang sama (lewat `pandoc --citeproc` dan gaya APA 7 di `00-word/apa.csl`), sehingga sitasi dan daftar pustaka di Word otomatis sama dengan versi PDF. Catatan: pada sitasi `\textcite` dua penulis, versi Word menulis tanda `&` (AlQahtani & Alhassany (2013)), sedangkan versi PDF menulis kata *dan*; selebihnya sama. Kunci sitasi tidak tampil di Word; yang tampil teks hasilnya.
 
 ## 5.9 Lampiran
 
@@ -329,7 +385,7 @@ Ada enam peran. Nama makronya dipakai di berkas `.tex`, dan di menu muncul denga
 | Penguji I | `\PengujiI` | `\PengujiInidn` | halaman pengesahan, kata pengantar |
 | Penguji II | `\PengujiII` | `\PengujiIInidn` | halaman pengesahan, kata pengantar |
 | Ketua Program Studi | `\KetuaProdi` | `\KetuaProdinidn` | halaman pengesahan, kata pengantar |
-| Dekan Fakultas Teknik | `\Dekan` | `\Dekannidn` | halaman pengesahan, kata pengantar pedoman |
+| Dekan Fakultas Teknik | `\Dekan` | `\Dekannidn` | halaman pengesahan, kata pengantar |
 
 Peran yang belum dipilih tampil sebagai titik-titik isian (……) sehingga dapat ditulis tangan.
 
@@ -369,13 +425,13 @@ Dokumen pada folder `00-contoh/` mengatur peran dosennya sendiri (hanya ilustras
 
 # 8. Formulir pengajuan judul
 
-`01-formulir/formulir.tex` berisi formulir pengajuan judul penelitian (Arial 12). Strukturnya:
+`01-formulir/formulir.tex` berisi formulir pengajuan judul penelitian (Arial 12, 8 halaman). Susunannya mengikuti Dokumen Pra Proposal SP-01A:
 
-- **Halaman 1:** kop (logo, nama universitas, fakultas, program studi), judul formulir, identitas (nama, NPM/angkatan, No. HP/surel, tanggal pengajuan), tabel tiga judul (paling banyak 20 kata, huruf kapital), dan tanda tangan pengaju.
-- **Tiga usulan judul**, masing-masing dibuat oleh satu perintah: `\usulan{1}`, `\usulan{2}`, `\usulan{3}`, **satu halaman per usulan**. Isinya: judul, (1) Objek/Tempat Penelitian, (2) Latar Belakang Masalah, (3) Rumusan Masalah, (4) Tujuan Penelitian, dan (5) tabel Penelitian Terkait dan Daftar Pustaka (minimal 10 artikel, rujukan gaya APA 7, dengan kolom persamaan dan perbedaan). Setiap bagian berisi petunjuk satu baris dan ruang isian.
-- **Hasil verifikasi:** kotak centang usulan terpilih dan keputusan (disetujui, disetujui dengan revisi, ditolak), catatan, dosen pembimbing I dan II, serta tanda tangan Ketua Prodi (nama dan NIDN diambil dari `00-common/peran.tex`).
+- **Halaman 1: identitas dan ringkasan.** Logo dan judul formulir; NAMA, NPM/Angkatan, No. HP/Surel, dan Tanggal Pengajuan; tabel tiga judul (huruf kapital, paling banyak 20 kata); tanda tangan pengaju.
+- **Halaman 2 sampai 7: tiga usulan, dua halaman per usulan**, masing-masing dibuat oleh satu perintah: `\usulan{1}`, `\usulan{2}`, `\usulan{3}`. Halaman pertama usulan memuat judul, identitas penelitian (bidang, jenis, tipe, asal judul), serta (1) objek/tempat penelitian, (2) latar belakang masalah, (3) rumusan masalah, (4) tujuan penelitian. Halaman kedua memuat (5) metode, (6) tabel penelitian terkait (minimal 10 artikel, rujukan gaya APA 7, beserta persamaan dan perbedaan yang sekaligus menjadi daftar pustaka), status usulan, masukan calon dosen pembimbing, dan tanda tangan mahasiswa serta calon pembimbing.
+- **Halaman 8: hasil verifikasi.** Kotak centang untuk Ketua Prodi/dosen verifikator, kotak dosen pembimbing I dan II, serta tanda tangan Ketua Prodi (nama dan NIDN diambil dari `00-common/peran.tex`).
 
-Untuk mengubah teks petunjuk, edit definisi `\usulan` di bagian atas berkas; ketiga usulan ikut berubah. Membuatnya: `./menu.sh pdf formulir`.
+Tiap halaman diawali dengan `halamanbaru` sehingga tidak ada kotak yang terpotong antarhalaman. Untuk mengubah teks petunjuk, edit definisi `\usulan` di bagian atas berkas; ketiga usulan ikut berubah. Membuatnya: `./menu.sh semua formulir`.
 
 # 9. Aturan format yang sudah otomatis
 
@@ -405,7 +461,7 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 
 **Batasan konversi** (agar hasil Word tetap rapi):
 
-- Gunakan lingkungan standar yang ada di contoh (`longtable`, `figure`, `enumerate`, `pustaka`, dst.).
+- Gunakan lingkungan standar yang ada di contoh (`longtable`, `figure`, `enumerate`, `daftarpustaka`, dst.).
 - Hindari spesifikasi kolom berbentuk `>{\centering\arraybackslash}p{...}` pada tabel isi; isi sel bisa hilang di Word. Gunakan kolom `c`, `l`, `r`, atau `p{...}`.
 - Gambar yang dibuat dengan kode (TikZ/PGF) tidak ikut ke Word; simpan sebagai `.png` terlebih dahulu.
 - Perintah pengatur tata letak murni (`\vspace`, `\hspace`, `\newpage`) tidak berpengaruh di Word. Gunakan lingkungan khusus di bawah ini.
@@ -416,7 +472,7 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 |---|---|
 | `tengah` | blok rata tengah satu spasi (sampul, judul halaman) |
 | `kanan` | blok digeser ke kanan (penutup kata pengantar, tanda tangan) |
-| `pustaka` | daftar pustaka (baris kedua menjorok, 1 spasi) |
+| `daftarpustaka` | pembungkus `\printbibliography`; daftar pustaka otomatis dari `pustaka.bib` (baris kedua menjorok, 1 spasi) |
 | `tanpagaris` | tabel tanpa garis (tanda tangan, data) |
 | `tabelpusat` | semua kolom tabel di dalamnya rata tengah (khusus Word) |
 | `ruang` | jarak kosong vertikal, mis. `\begin{ruang}{2}\end{ruang}` = 2 cm |
@@ -434,6 +490,7 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 | Berkas di dalam `bab/` dikompilasi sendiri dan galat | kompilasi berkas utama, bukan berkas bab. |
 | `Undefined control sequence` | salah ketik perintah, atau lupa `\` pada karakter khusus (bagian 5.3). Lihat nomor baris pada pesan galat. |
 | Kalimat tiba-tiba terpotong | ada `%` tanpa `\` di baris itu. Tulis `\%`. |
+| Sitasi tampil `?` atau `[kunci]`; daftar pustaka kosong | kunci salah ketik, atau `biber` belum berjalan. Kompilasi dengan `latexmk`/`./menu.sh` (bukan satu kali `xelatex`). Periksa pesan `biber` (`WARN - I didn't find a database entry for ...`) dan ejaan kunci di `00-common/pustaka.bib`. |
 | Daftar isi kosong / nomor halaman salah | jalankan pembuatan PDF sekali lagi (daftar butuh dua putaran; menu sudah mengulang otomatis). |
 | Daftar isi di Word hanya tulisan "Klik kanan..." | belum diperbarui; lihat bagian 10 butir 1. |
 | Gambar tidak muncul | periksa nama dan lokasi berkas di `00-gambar/`; nama berkas peka huruf besar-kecil. |

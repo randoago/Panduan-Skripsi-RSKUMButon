@@ -4,4 +4,5 @@ $ENV{'TEXINPUTS'} = '../../00-common//:' . ($ENV{'TEXINPUTS'} // '');
 $pdf_mode = 5;                                   # 5 = xelatex
 $xelatex  = 'xelatex -interaction=nonstopmode -file-line-error %O %S';
 $pdflatex = 'xelatex -interaction=nonstopmode -file-line-error %O %S';   # bila editor memaksa opsi -pdf
-$bibtex_use = 0;
+$ENV{'BIBINPUTS'} = '../../00-common//:' . ($ENV{'BIBINPUTS'} // '');   # pustaka.bib
+$bibtex_use = 1;                                 # biber dijalankan otomatis (biblatex)

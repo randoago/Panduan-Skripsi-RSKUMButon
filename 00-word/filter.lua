@@ -210,6 +210,10 @@ local STYLE_OF = {
 }
 
 function Div(d)
+  -- daftar pustaka otomatis: pandoc (--citeproc) mengisi div#refs dari 00-common/pustaka.bib
+  if has(d, 'daftarpustaka') then
+    return pandoc.Div({}, pandoc.Attr('refs'))
+  end
   for cls, st in pairs(STYLE_OF) do
     if has(d, cls) then
       d.attributes['custom-style'] = st

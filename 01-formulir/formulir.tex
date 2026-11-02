@@ -2,7 +2,7 @@
 %  FORMULIR PENGAJUAN JUDUL PENELITIAN / SKRIPSI / TUGAS AKHIR
 %  Program Studi Rekayasa Sistem Komputer, Fakultas Teknik, UM Buton
 %  Kompilasi PDF : xelatex (lihat menu.sh)   |   Word : pandoc (lihat menu.sh)
-%  Susunan (5 hlm.): 1 identitas + tiga judul; 2-4 satu halaman per usulan; 5 hasil verifikasi.
+%  Susunan (8 hlm.): 1 identitas + tiga judul; 2-7 dua halaman per usulan (mengikuti SP-01A); 8 hasil verifikasi.
 %  Isi kotak: Arial 12 tanpa tebal. Petunjuk satu baris, miring.
 % =====================================================================
 \documentclass[12pt,a4paper]{article}
@@ -22,26 +22,55 @@
 % Satu bagian isian: judul bagian (tebal), petunjuk satu baris (miring), ruang isi #3 cm
 \newcommand{\bagian}[3]{{\raggedright\textbf{#1}\ {\footnotesize\itshape #2}\par}\tinggi{#3} \\ \hline}
 
-% Satu usulan = satu halaman
-\newcommand{\baris}[1]{#1 & \tinggi{0.8} & & \\ \hline}
+% Satu usulan = dua halaman (susunan mengikuti Dokumen Pra Proposal SP-01A)
+\newcommand{\baris}[1]{#1 & \tinggi{0.7} & & \\ \hline}
+\newcommand{\isi}[2]{\textbf{#1} & : & #2 \\ \hline}
 \newcommand{\usulan}[1]{%
 \begingroup\renewcommand{\arraystretch}{1.1}
 \begin{longtable}{|p{0.96\linewidth}|}
 \hline
 \textbf{USULAN JUDUL #1} \\ \hline
+\end{longtable}
+\begin{longtable}{|p{0.28\linewidth}|p{0.03\linewidth}|p{0.597\linewidth}|}
+\hline
+\isi{Bidang penelitian}{\tinggi{0.6}}
+\isi{Jenis penelitian}{\tinggi{0.6}}
+\isi{Tipe penelitian}{\tinggi{0.6}}
+\isi{Asal judul skripsi}{Usulan sendiri / Usulan dosen\,*)}
+\end{longtable}
+\begin{longtable}{|p{0.96\linewidth}|}
+\hline
 \bagian{Judul}{(huruf kapital, Arial 14 tebal, paling banyak 20 kata)}{1.4}
 \bagian{1.~~Objek/tempat penelitian}{(beserta alamat; bila tanpa objek: Laboratorium Pemrograman/Robotika/Jaringan UM Buton)}{0.9}
-\bagian{2.~~Latar belakang masalah}{(jelas, ringkas, sistematis)}{3.0}
-\bagian{3.~~Rumusan masalah}{(bernomor)}{1.6}
-\bagian{4.~~Tujuan penelitian}{(bernomor, menjawab rumusan masalah)}{1.6}
+\bagian{2.~~Latar belakang masalah}{(jelas, ringkas, sistematis)}{6.5}
+\bagian{3.~~Rumusan masalah}{(bernomor)}{3.2}
+\bagian{4.~~Tujuan penelitian}{(bernomor, menjawab rumusan masalah)}{3.2}
+\end{longtable}
+{\footnotesize *) Coret yang tidak perlu}
+\begin{halamanbaru}\end{halamanbaru}
+\begin{longtable}{|p{0.96\linewidth}|}
+\hline
+\bagian{5.~~Metode yang digunakan untuk menyelesaikan permasalahan}{(paling banyak 250 kata dan 1 gambar blok diagram metode)}{4.6}
 \end{longtable}
 \textbf{Tabel 2.1.} Penelitian terkait\par\vspace{2pt}
-\begin{longtable}{|p{0.06\linewidth}|p{0.34\linewidth}|p{0.23\linewidth}|p{0.23\linewidth}|}
+\begin{longtable}{|p{0.06\linewidth}|p{0.35\linewidth}|p{0.235\linewidth}|p{0.235\linewidth}|}
 \hline
-\multicolumn{4}{|p{0.86\linewidth}|}{\textbf{5.~~Penelitian terkait dan daftar pustaka}\ {\footnotesize\itshape (minimal 10 artikel jurnal/prosiding; rujukan gaya APA 7: Penulis, A. B. (Tahun). Judul. Nama Jurnal, 12(1), 45--58. DOI/URL. Kolom Rujukan sekaligus daftar pustaka)}} \\ \hline
+\multicolumn{4}{|p{0.93\linewidth}|}{\textbf{6.~~Penelitian terkait dan daftar pustaka}\ {\footnotesize\itshape (minimal 10 artikel jurnal/prosiding; rujukan gaya APA 7: Penulis, A. B. (Tahun). Judul. Nama Jurnal, 12(1), 45--58. DOI/URL. Kolom Rujukan sekaligus daftar pustaka)}} \\ \hline
 \textbf{No.} & \textbf{Rujukan} & \textbf{Persamaan} & \textbf{Perbedaan} \\ \hline
 \endhead
 \baris{1}\baris{2}\baris{3}\baris{4}\baris{5}\baris{6}\baris{7}\baris{8}\baris{9}\baris{10}
+\end{longtable}
+\begin{longtable}{|p{0.96\linewidth}|}
+\hline
+\textbf{Status usulan:}\ \ \cek~Diteruskan menjadi proposal\ \ \ \cek~Ditolak\ \ {\footnotesize\itshape (coret yang tidak perlu)}\newline
+Keterangan (bila ditolak): …………………………………………………… \\ \hline
+\textbf{Masukan calon dosen pembimbing untuk penulisan proposal:} {\footnotesize\itshape (diisi oleh calon dosen pembimbing)}\par\tinggi{1.8} \\ \hline
+\end{longtable}
+\begin{longtable}{|p{0.466\linewidth}|p{0.466\linewidth}|}
+\hline
+\textbf{Tanda tangan mahasiswa} & \textbf{Tanda tangan calon pembimbing} \\ \hline
+Baubau, ……………… 20…\par\tinggi{1.7}\par(\titik)\par NPM. ……………………… &
+Baubau, ……………… 20…\par\tinggi{1.7}\par(\titik)\par NIDN. ……………………… \\ \hline
 \end{longtable}\endgroup
 }
 

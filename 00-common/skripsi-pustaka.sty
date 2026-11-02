@@ -1,0 +1,21 @@
+% skripsi-pustaka.sty -- sitasi dan daftar pustaka gaya APA edisi ke-7 (biblatex-apa + biber).
+% Sumber dibaca dari 00-common/pustaka.bib; di naskah cukup \parencite{kunci} atau \textcite{kunci}.
+% Teks berbahasa Indonesia ("dan", "hlm.", "Diakses pada ... dari") ada di indonesian-apa.lbx.
+% Hanya dipakai LaTeX; untuk Word, pandoc memakai pustaka.bib yang sama (00-word/buat_word.py).
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{skripsi-pustaka}[2026/11/02 Sitasi dan daftar pustaka APA FT UM Buton]
+\RequirePackage{csquotes}
+\RequirePackage[style=apa,backend=biber,sortcites=true]{biblatex}
+\addbibresource{pustaka.bib}   % dicari lewat BIBINPUTS (latexmkrc) ke 00-common/pustaka.bib
+
+% Daftar pustaka: 1 spasi, baris kedua menjorok 1,27 cm, jarak antarentri 12 pt, tanpa nomor urut
+\setlength{\bibhang}{1.27cm}
+\defbibenvironment{bibliography}
+  {\begin{singlespace}\raggedright\list{}{\setlength{\leftmargin}{\bibhang}\setlength{\itemindent}{-\bibhang}%
+     \setlength{\itemsep}{12pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}}}
+  {\endlist\end{singlespace}}
+  {\item}
+
+% Pembungkus daftar pustaka otomatis; di Word menjadi daftar pustaka dari pustaka.bib (lihat filter.lua)
+\newenvironment{daftarpustaka}{}{}
+

@@ -12,3 +12,9 @@ build/
 *.synctex.gz
 .DS_Store
 .vscode
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.bcf-SAVE-ERROR
+*.bbl-SAVE-ERROR

@@ -2,7 +2,7 @@
 # menu.sh -- menu untuk membuat PDF (LaTeX) dan Word (.docx) dari dokumen skripsi.
 #
 # Pemakaian interaktif :  ./menu.sh
-# Pemakaian langsung   :  ./menu.sh pdf|word|semua|buka|bersih|cek  [pedoman|proposal|formulir|seminar-hasil|skripsi|semua|contoh]
+# Pemakaian langsung   :  ./menu.sh pdf|word|semua|buka|bersih|cek  [proposal|formulir|seminar-hasil|skripsi|semua|contoh]
 #                         contoh:  ./menu.sh word proposal      (dokumen contoh terisi:  ./menu.sh semua contoh)
 
 set -u
@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 ROOT="$(pwd)"
 export TEXINPUTS="$ROOT/00-common//:${TEXINPUTS:-}"
 
-DOKUMEN=(proposal formulir seminar-hasil skripsi)   # Pedoman: hanya PDF (pedoman/pedoman.pdf), sumbernya tidak dibagikan
+DOKUMEN=(proposal formulir seminar-hasil skripsi)   # Pedoman: hanya PDF (00-pedoman/pedoman.pdf), sumbernya tidak dibagikan
 CONTOH=(contoh-proposal contoh-hasil contoh-skripsi)   # dokumen contoh terisi (folder 00-contoh/)
 # (macOS memakai bash 3.2: tanpa array asosiatif)
 judul() {
@@ -41,7 +41,7 @@ info() { echo "${Y}•${N} $*"; }
 # ---------- pekerjaan ----------
 cek_alat() {
   local semua=0
-  for t in xelatex latexmk pandoc python3; do
+  for t in xelatex latexmk biber pandoc python3; do
     if command -v "$t" >/dev/null 2>&1; then ok "$t  ($(command -v "$t"))"
     else gagal "$t belum terpasang"; semua=1; fi
   done

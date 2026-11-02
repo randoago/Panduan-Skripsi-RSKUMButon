@@ -1,0 +1,71 @@
+\ProvidesFile{indonesian-apa.lbx}[2026/11/02 Lokalisasi biblatex-apa bahasa Indonesia]
+% Dasar: english-apa (semua string APA); di bawah ini hanya string yang diganti ke bahasa Indonesia.
+\InheritBibliographyExtras{english}
+\InheritBibliographyStrings{english}
+
+\DeclareBibliographyStrings{%
+  and              = {{dan}{dan}},
+  andothers        = {{et\addabbrvspace al\adddot}{et\addabbrvspace al\adddot}},
+  editor           = {{editor}{Ed\adddot}},
+  editors          = {{editor}{Ed\adddot}},
+  translator       = {{penerjemah}{Penerj\adddot}},
+  translators      = {{penerjemah}{Penerj\adddot}},
+  in               = {{dalam}{Dalam}},
+  page             = {{halaman}{hlm\adddot}},
+  pages            = {{halaman}{hlm\adddot}},
+  volume           = {{volume}{vol\adddot}},
+  edition          = {{edisi}{ed\adddot}},
+  retrieved        = {{diakses pada}{diakses pada}},
+  from             = {{dari}{dari}},
+  nodate           = {{tanpa tahun}{t\adddot t\adddot}},
+  mathesis         = {{Skripsi}{Skripsi}},   % S1; tulis type = {mathesis} di pustaka.bib
+  phdthesis        = {{Disertasi}{Disertasi}},
+  january          = {{Januari}{Januari}},
+  february         = {{Februari}{Februari}},
+  march            = {{Maret}{Maret}},
+  april            = {{April}{April}},
+  may              = {{Mei}{Mei}},
+  june             = {{Juni}{Juni}},
+  july             = {{Juli}{Juli}},
+  august           = {{Agustus}{Agustus}},
+  september        = {{September}{September}},
+  october          = {{Oktober}{Oktober}},
+  november         = {{November}{November}},
+  december         = {{Desember}{Desember}},
+}
+
+% Tanggal berurutan hari-bulan-tahun: (2026, 5 Maret) dan "Diakses pada 21 Oktober 2026, dari ..."
+\DeclareBibliographyExtras{%
+  \def\urldatecomma{\addcomma\addspace}%
+  \protected\def\mkbibdateapalong#1#2#3#4{%
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}{}{\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}%
+    \iffieldundef{#2}{}{\iffieldundef{#1}{}{\addcomma\addspace}\iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}{}%
+      {\iffieldundef{#1}{}{\addcomma\addspace}%
+       \iffieldundef{#4}{}{\stripzeros{\thefield{#4}}\addspace}%
+       \mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongextra#1#2#3#4{%
+    \ifboolexpr{ (test {\ifentrytype{article}}
+                  or (test {\ifentrytype{inbook}} and not test {\ifnameundef{editor}}))
+                 and not test {\iffieldequalstr{entrysubtype}{nonacademic}} }
+      {\clearfield{labelmonth}%
+       \clearfield{labelday}}
+      {}%
+    \iffieldundef{#1}{}{\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}\printfield{extradate}}%
+    \iffieldundef{#2}{}{\iffieldundef{#1}{}{\addcomma\addspace}\iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}}%
+    \iffieldundef{#3}{}%
+      {\iffieldundef{#1}{}{\addcomma\addspace}%
+       \iffieldundef{#4}{}{\stripzeros{\thefield{#4}}\addspace}%
+       \mkbibmonth{\thefield{#3}}}}%
+  \protected\def\mkbibdateapalongmdy#1#2#3#4{%
+    \iffieldundef{#2}{}{\iffieldbibstring{#2}{\bibcplstring{\thefield{#2}}}{\thefield{#2}}\addspace}%
+    \iffieldundef{#4}{}{\stripzeros{\thefield{#4}}\addspace}%
+    \iffieldundef{#3}{}{\mkbibmonth{\thefield{#3}}}%
+    \iffieldundef{#1}{}{\iffieldundef{#3}{}{\addspace}\iffieldbibstring{#1}{\bibncpstring{\thefield{#1}}}{\thefield{#1}}}}%
+}
