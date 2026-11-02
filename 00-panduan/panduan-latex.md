@@ -7,38 +7,37 @@ subtitle: "Program Studi Rekayasa Sistem Komputer, Fakultas Teknik, Universitas 
 
 Semua dokumen (proposal, seminar hasil, skripsi, formulir judul) ditulis dalam **LaTeX**. Dari satu sumber yang sama Anda bisa menghasilkan:
 
-- **PDF** (tata letak persis sesuai pedoman), dan
+- **PDF** (tata letak sesuai pedoman), dan
 - **Word (.docx)** (untuk diedit atau diserahkan dalam format Word).
 
 Anda **cukup mengedit berkas `.tex`**. PDF dan Word dibuat otomatis lewat menu, tidak perlu diatur ulang margin, spasi, atau nomor halamannya.
 
 ## Struktur folder
 
+Folder berawalan `00-` bukan tahapan skripsi; `01` sampai `04` adalah tahapan yang berurutan.
+
 ```
-panduan-skripsi/
-├── menu.sh                  <- menu pembuat PDF / Word
-│  Folder berawalan 00 = bukan tahapan skripsi; 01 sampai 04 = tahapan, berurutan.
-├── 00-panduan/              <- panduan ini
-├── 00-pedoman/pedoman.pdf   <- pedoman penulisan skripsi (hanya PDF)
-├── 00-contoh/               <- contoh terisi (proposal, seminar hasil, skripsi) + PDF/Word di 00-contoh/output
-├── 00-output/               <- keluaran: *.pdf dan *.docx
-├── 00-common/               <- gaya & data bersama (jarang diubah)
+Panduan-Skripsi-RSKUMButon/
+├── menu.sh                menu pembuat PDF dan Word
+├── 00-panduan/            panduan ini
+├── 00-pedoman/            pedoman.pdf (hanya PDF)
+├── 00-contoh/             contoh terisi: proposal, seminar-hasil, skripsi (+ output/)
+├── 00-output/             hasil: *.pdf dan *.docx
+├── 00-common/             gaya dan data bersama (jarang diubah)
 │   ├── skripsi.sty, skripsi-bab.sty   tata letak
-│   ├── skripsi-pustaka.sty            pengaturan sitasi & daftar pustaka (APA 7)
-│   ├── indonesian-apa.lbx             istilah bahasa Indonesia untuk APA (dan, hlm., t.t.)
-│   ├── pustaka.bib                    DAFTAR SUMBER Anda (satu berkas untuk semua dokumen)
+│   ├── skripsi-pustaka.sty            sitasi dan daftar pustaka APA 7
+│   ├── indonesian-apa.lbx             istilah APA bahasa Indonesia
+│   ├── pustaka.bib                    daftar sumber (dipakai semua dokumen)
 │   ├── dosen.tex                      daftar dosen
-│   └── peran.tex                      pembimbing/penguji/dst.
-├── 00-gambar/               <- logo & gambar
-├── 00-word/                 <- mesin konversi ke Word
-├── 01-formulir/formulir.tex <- tahap 1: formulir pengajuan judul
-├── 02-proposal/             <- tahap 2: template proposal
-│   ├── proposal.tex
-│   └── bab/
-├── 03-seminar-hasil/        <- tahap 3: format seminar hasil (struktur sama dengan skripsi)
-└── 04-skripsi/              <- tahap 4: format skripsi
-    ├── skripsi.tex            berkas utama (sampul, halaman depan, daftar bab)
-    └── bab/                   satu berkas per bab
+│   └── peran.tex                      pembimbing, penguji, dan seterusnya
+├── 00-gambar/             logo dan gambar
+├── 00-word/               mesin konversi ke Word
+├── 01-formulir/           tahap 1: formulir pengajuan judul (formulir.tex)
+├── 02-proposal/           tahap 2: proposal (proposal.tex, bab/)
+├── 03-seminar-hasil/      tahap 3: seminar hasil (struktur sama dengan skripsi)
+└── 04-skripsi/            tahap 4: skripsi
+    ├── skripsi.tex        berkas utama (sampul, halaman depan, daftar bab)
+    └── bab/               satu berkas per bab
 ```
 
 # 2. Persiapan (sekali saja)
@@ -425,7 +424,7 @@ Dokumen pada folder `00-contoh/` mengatur peran dosennya sendiri (hanya ilustras
 
 # 8. Formulir pengajuan judul
 
-`01-formulir/formulir.tex` berisi formulir pengajuan judul penelitian (Arial 12, 8 halaman). Susunannya mengikuti Dokumen Pra Proposal SP-01A:
+`01-formulir/formulir.tex` berisi formulir pengajuan judul penelitian (Arial 12, 8 halaman). Susunannya:
 
 - **Halaman 1: identitas dan ringkasan.** Logo dan judul formulir; NAMA, NPM/Angkatan, No. HP/Surel, dan Tanggal Pengajuan; tabel tiga judul (huruf kapital, paling banyak 20 kata); tanda tangan pengaju.
 - **Halaman 2 sampai 7: tiga usulan, dua halaman per usulan**, masing-masing dibuat oleh satu perintah: `\usulan{1}`, `\usulan{2}`, `\usulan{3}`. Halaman pertama usulan memuat judul, identitas penelitian (bidang, jenis, tipe, asal judul), serta (1) objek/tempat penelitian, (2) latar belakang masalah, (3) rumusan masalah, (4) tujuan penelitian. Halaman kedua memuat (5) metode, (6) tabel penelitian terkait (minimal 10 artikel, rujukan gaya APA 7, beserta persamaan dan perbedaan yang sekaligus menjadi daftar pustaka), status usulan, masukan calon dosen pembimbing, dan tanda tangan mahasiswa serta calon pembimbing.
@@ -506,54 +505,3 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 3. Simpan gambar di `00-gambar/`.
 4. `./menu.sh semua skripsi` → periksa `00-output/skripsi.pdf` dan `00-output/skripsi.docx`.
 5. Perbaiki di `.tex`, ulangi langkah 4 sampai siap dikumpulkan.
-
-# 14. Hasil analisis dokumen asli (kesesuaian format)
-
-Dokumen asli yang dianalisis: *Pedoman Penulisan Skripsi*, *Template Proposal Skripsi*, dan *Formulir Pengajuan Judul* (berkas Word/PDF dari Prodi). Pengukuran dilakukan pada PDF-nya (ukuran kertas, margin, jenis huruf, jarak baris) lalu dibandingkan dengan aturan yang tertulis di Pedoman. Hasilnya dipakai untuk menetapkan format di folder ini.
-
-## 14.1 Temuan pada dokumen asli
-
-| No | Dokumen asli | Temuan | Keputusan pada template ini |
-|--|-------|----------------------------|------------------------------|
-| 1 | Pedoman | Margin tertulis kiri 4, kanan 3, bawah 3, **atas 3** cm | Margin **4/4/3/3** (kiri/atas/kanan/bawah) pada semua dokumen |
-| 2 | Pedoman | Jarak baris teks tertulis **2 spasi** (isi PDF-nya memang 2 spasi), sedangkan Template Proposal memakai **1,5 spasi** | **1,5 spasi** untuk Pedoman, Proposal, Seminar Hasil, Skripsi; judul tabel/gambar, abstrak, daftar, daftar pustaka, lampiran 1 spasi |
-| 3 | Pedoman | Alinea "tab stop 1,5" tanpa satuan jelas | Alinea menjorok **1 cm** |
-| 4 | Pedoman | Penomoran gambar "Gambar 1." (urut), sedangkan Template Proposal "Tabel 2.1 / Gambar 2.1" (per bab) | Nomor **per bab** (Gambar 1.1, Tabel 2.3); lampiran memakai awalan lampiran (Tabel L2.1) |
-| 5 | Pedoman | Penulisan mahasiswa memakai "NIM" | Diganti **NPM** di semua dokumen |
-| 6 | Pedoman | Tidak ada aturan nomor halaman (hanya urutan lembar); judul tabel tidak ditegaskan posisinya | Ditetapkan: sampul, persetujuan, pengesahan, keaslian tanpa nomor; abstrak sampai daftar lampiran romawi; isi arab; awal bab tengah bawah, halaman berikutnya kanan atas; judul tabel **atas-tengah**, judul gambar **bawah-tengah** |
-| 7 | Pedoman | Daftar urutan lembar memuat **Daftar Lampiran**, tetapi contohnya tidak diwajibkan di template | **Daftar Lampiran** ditambahkan pada Skripsi dan Seminar Hasil (dibuat otomatis dari `\lampiran{n}{judul}`) |
-| 8 | Pedoman | Daftar pustaka bergaya Harvard lama ("Nama. Tahun. Judul."); Template Proposal menyebut **IEEE** | **APA edisi ke-7** (penulis--tahun) untuk semua dokumen, lengkap dengan tanggal akses untuk sumber web |
-| 9 | Pedoman | Istilah tidak seragam: "Halaman Pengajuan" vs "Halaman Persetujuan"; bab penutup tertulis "BAB KESIMPULAN" tanpa angka; salah ketik ("sampur", "dengari", "Flow Chat") | Istilah diseragamkan: *Lembar Persetujuan* dan *Halaman Pengesahan*; bab ditulis "BAB V KESIMPULAN DAN SARAN"; salah ketik dibenahi |
-| 10 | Template Proposal | Teks menyebut margin 2/2/2/2,5 cm dan pengukuran PDF 2,5 (kiri) / 2 (kanan) cm; bukan margin Pedoman | Margin **4/4/3/3** |
-| 11 | Template Proposal | Desimal ditulis titik ("0.25") bertentangan dengan Pedoman (koma) | Desimal **koma** ("0,25") |
-| 12 | Template Proposal | Judul bab "1. PENDAHULUAN"; tiap bab tidak selalu di halaman baru | "BAB I" + judul, **tiap bab di halaman baru** |
-| 13 | Template Proposal | Tidak ada abstrak dan daftar isi; tabel tanpa garis penuh; jadwal bertahun "2018" | Ditambah **abstrak (Indonesia dan Inggris)** dan **daftar isi/tabel/gambar**; tabel **kotak penuh**; tahun jadwal "202x" |
-| 14 | Template Proposal | Proposal terdiri atas empat bab (jadwal sebagai bab sendiri) | Proposal **hanya sampai Bab III**; jadwal pelaksanaan menjadi subbab Bab III |
-| 15 | Template Proposal | Salah ketik ("propopsal", "gabar", "Tinjuan", "junal") | Dibenahi |
-| 16 | Formulir | Ukuran kertas **Letter** (bukan A4), huruf Calibri padahal petunjuknya Arial, margin 2,5/1,9 cm | **A4**, **Arial**, margin seragam |
-| 17 | Formulir | Kotak terpotong antarhalaman, judul bagian tertinggal di dasar halaman, penomoran daftar "1., 2., 3." berlanjut pada usulan 2 dan 3 | Satu tabel kotak penuh per usulan, satu halaman per usulan, penomoran tidak berlanjut |
-| 18 | Formulir | "NIM", salah ketik ("dtulis", "d Bold", "masing-2", "Um. Buton") | "NPM", ejaan dan penulisan "UM Buton" dibenahi |
-
-## 14.2 Daftar periksa kesesuaian (hasil pemeriksaan otomatis)
-
-Pemeriksaan berikut dijalankan pada seluruh PDF hasil (Pedoman, Proposal, Seminar Hasil, Skripsi, dan contohnya):
-
-| Aturan Pedoman | Status |
-|------------------------------|--------------------|
-| Kertas A4 | sesuai (juga pada berkas Word) |
-| Margin 4/4/3/3 cm; teks, tabel, gambar tidak melewati margin | sesuai |
-| Huruf Times New Roman 12 pt; judul bab 14 pt tebal kapital | sesuai (rumus memakai TeX Gyre Termes Math agar serasi) |
-| Isi 1,5 spasi; abstrak, judul tabel/gambar, isi tabel, daftar, daftar pustaka, lampiran 1 spasi | sesuai |
-| Rata kanan-kiri; alinea menjorok 1 cm | sesuai |
-| Satu baris sendirian di awal/akhir halaman tidak boleh | sesuai (`\widowpenalty` dan `\clubpenalty` 10000) |
-| Setiap bab mulai di halaman baru; judul subbab tidak sendirian di dasar halaman | sesuai |
-| Tidak ada subbab tunggal (1.1 harus disertai 1.2) | sesuai pada semua dokumen |
-| Tabel tidak terpotong antarhalaman (kecuali tabel panjang di lampiran) | sesuai; satu tabel panjang di Lampiran 6 Pedoman dibenarkan Pedoman |
-| Judul tabel di atas, judul gambar di bawah, tanpa titik di akhir judul | sesuai |
-| Nomor halaman: awal bab tengah bawah, selanjutnya kanan atas; depan romawi | sesuai |
-| Nama pada lembar persetujuan/pengesahan satu baris | sesuai |
-
-**Catatan keterbatasan:** tampilan berkas Word (`.docx`) diperiksa lewat struktur isinya (ukuran kertas, margin, huruf, gaya paragraf) dan tidak dirender ulang pada pengerjaan terakhir. Setelah membuka berkas Word, perbarui *field* (Ctrl+A, F9) agar daftar isi, daftar tabel, daftar gambar, dan daftar lampiran terisi, lalu periksa sekilas pemenggalan halaman.
-
-Isi Bab IV Pedoman (tata cara pengajuan judul, bimbingan, seminar, dan ujian) bersifat umum karena Pedoman asli berhenti pada bab "Penutup". **Sesuaikan dengan ketentuan Program Studi** sebelum diberlakukan.
-

@@ -2,7 +2,7 @@
 %  FORMULIR PENGAJUAN JUDUL PENELITIAN / SKRIPSI / TUGAS AKHIR
 %  Program Studi Rekayasa Sistem Komputer, Fakultas Teknik, UM Buton
 %  Kompilasi PDF : xelatex (lihat menu.sh)   |   Word : pandoc (lihat menu.sh)
-%  Susunan (8 hlm.): 1 identitas + tiga judul; 2-7 dua halaman per usulan (mengikuti SP-01A); 8 hasil verifikasi.
+%  Susunan (8 hlm.): 1 identitas + tiga judul; 2-7 dua halaman per usulan; 8 hasil verifikasi.
 %  Isi kotak: Arial 12 tanpa tebal. Petunjuk satu baris, miring.
 % =====================================================================
 \documentclass[12pt,a4paper]{article}
@@ -22,7 +22,7 @@
 % Satu bagian isian: judul bagian (tebal), petunjuk satu baris (miring), ruang isi #3 cm
 \newcommand{\bagian}[3]{{\raggedright\textbf{#1}\ {\footnotesize\itshape #2}\par}\tinggi{#3} \\ \hline}
 
-% Satu usulan = dua halaman (susunan mengikuti Dokumen Pra Proposal SP-01A)
+% Satu usulan = dua halaman
 \newcommand{\baris}[1]{#1 & \tinggi{0.7} & & \\ \hline}
 \newcommand{\isi}[2]{\textbf{#1} & : & #2 \\ \hline}
 \newcommand{\usulan}[1]{%

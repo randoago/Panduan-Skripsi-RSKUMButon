@@ -8,7 +8,7 @@ Template dan panduan penulisan skripsi untuk mahasiswa **Program Studi Rekayasa 
 
 | Tahap | Folder | Dokumen | Contoh PDF |
 | :-: | --- | --- | --- |
-| 1 | [`01-formulir/`](01-formulir) | Formulir pengajuan judul (3 usulan, mengikuti SP-01A) | [formulir.pdf](01-formulir/formulir.pdf) |
+| 1 | [`01-formulir/`](01-formulir) | Formulir pengajuan judul (3 usulan judul) | [formulir.pdf](01-formulir/formulir.pdf) |
 | 2 | [`02-proposal/`](02-proposal) | Template proposal: sampul, persetujuan, abstrak, Bab I–III, daftar pustaka | [proposal.pdf](02-proposal/proposal.pdf) |
 | 3 | [`03-seminar-hasil/`](03-seminar-hasil) | Format seminar hasil: Bab I–V, daftar pustaka, lampiran | [seminar-hasil.pdf](03-seminar-hasil/seminar-hasil.pdf) |
 | 4 | [`04-skripsi/`](04-skripsi) | Format skripsi: pengesahan, keaslian, abstrak, kata pengantar, Bab I–V, lampiran | [skripsi.pdf](04-skripsi/skripsi.pdf) |
