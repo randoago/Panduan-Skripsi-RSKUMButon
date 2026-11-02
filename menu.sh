@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# menu.sh -- menu untuk membuat PDF (LaTeX) dan Word (.docx) dari dokumen skripsi.
+# menu.sh -- menu untuk membuat PDF (LaTeX) dari dokumen skripsi. Berkas Word (.docx) siap pakai ada di 00-output/.
 #
 # Pemakaian interaktif :  ./menu.sh
-# Pemakaian langsung   :  ./menu.sh pdf|word|semua|buka|bersih|cek  [proposal|formulir|seminar-hasil|skripsi|semua|contoh]
-#                         contoh:  ./menu.sh word proposal      (dokumen contoh terisi:  ./menu.sh semua contoh)
+# Pemakaian langsung   :  ./menu.sh pdf|buka|bersih|cek|peran  [proposal|formulir|seminar-hasil|skripsi|semua|contoh]
+#                         contoh:  ./menu.sh pdf proposal      (dokumen contoh terisi:  ./menu.sh pdf contoh)
 
 set -u
 cd "$(dirname "$0")"
@@ -41,13 +41,13 @@ info() { echo "${Y}•${N} $*"; }
 # ---------- pekerjaan ----------
 cek_alat() {
   local semua=0
-  for t in xelatex latexmk biber pandoc python3; do
+  for t in xelatex latexmk biber python3; do
     if command -v "$t" >/dev/null 2>&1; then ok "$t  ($(command -v "$t"))"
     else gagal "$t belum terpasang"; semua=1; fi
   done
   [ $semua -ne 0 ] && {
     echo
-    info "Pasang yang kurang:  brew install pandoc   |   brew install --cask mactex-no-gui"
+    info "Pasang yang kurang:  brew install --cask mactex-no-gui"
   }
   return $semua
 }
@@ -63,20 +63,6 @@ buat_pdf() {  # $1 = nama dokumen
     ok "$h/$b.pdf"
   else
     gagal "gagal membuat PDF — lihat build/$d-latex.log"; grep -m3 -A3 '^!' "$ROOT/build/$d-latex.log"; return 1
-  fi
-}
-
-buat_word() {  # $1 = nama dokumen
-  local d="$1" b h
-  b=$(berkas "$d"); h=$(hasildir "$d")
-  info "Word ← $d  ($(judul "$d"))"
-  [ -f "$ROOT/00-word/buat_word.py" ] || { gagal "pembuat Word (00-word/) tidak ada di paket ini; pakai berkas .docx siap pakai di 00-output/ dan 00-contoh/output/"; return 1; }
-  mkdir -p "$ROOT/$h"
-  if python3 "$ROOT/00-word/buat_word.py" "$d" -o "$ROOT/$h/$b.docx" >/dev/null 2>"$ROOT/build/$d-word.log"; then
-    ok "$h/$b.docx"
-    [ "$d" = pedoman ] && info "Buka di Word lalu pilih 'Yes/Ya' bila diminta memperbarui field (agar Daftar Isi terisi)."
-  else
-    gagal "gagal membuat Word — lihat build/$d-word.log"; tail -5 "$ROOT/build/$d-word.log"; return 1
   fi
 }
 
@@ -132,15 +118,13 @@ if [ $# -ge 1 ]; then
   case "$dok" in proposal|formulir|seminar-hasil|skripsi|semua|contoh|contoh-proposal|contoh-hasil|contoh-skripsi) ;; *) echo "dokumen tidak dikenal: $dok"; exit 2;; esac
   case "$aksi" in
     pdf)    untuk_dokumen buat_pdf  "$dok";;
-    word)   untuk_dokumen buat_word "$dok";;
-    semua)  untuk_dokumen buat_pdf "$dok"; untuk_dokumen buat_word "$dok";;
     buka)   if [ "$dok" = semua ]; then for x in "${DOKUMEN[@]}"; do buka_hasil "$x"; done
             elif [ "$dok" = contoh ]; then for x in "${CONTOH[@]}"; do buka_hasil "$x"; done
             else buka_hasil "$dok"; fi;;
     bersih) bersih;;
     cek)    cek_alat;;
     peran)  python3 "$ROOT/00-common/atur_peran.py";;
-    *) echo "aksi tidak dikenal: $aksi  (pdf|word|semua|buka|bersih|cek)"; exit 2;;
+    *) echo "aksi tidak dikenal: $aksi  (pdf|buka|bersih|cek|peran)"; exit 2;;
   esac
   exit $?
 fi
@@ -150,22 +134,18 @@ while true; do
   echo
   echo "${B}═══════════════ MENU DOKUMEN SKRIPSI — FT UM Buton ═══════════════${N}"
   echo "  1) Buat PDF            (LaTeX → PDF)"
-  echo "  2) Convert ke Word     (LaTeX → .docx)"
-  echo "  3) Buat PDF + Word"
-  echo "  4) Buka hasil          (00-output/*.docx, 00-output/*.pdf)"
-  echo "  5) Cek alat yang dibutuhkan"
-  echo "  6) Bersihkan berkas sementara"
-  echo "  7) Atur dosen / peran  (pembimbing, penguji, ketua prodi, dekan)"
+  echo "  2) Buka hasil          (00-output/*.docx, 00-output/*.pdf)"
+  echo "  3) Cek alat yang dibutuhkan"
+  echo "  4) Bersihkan berkas sementara"
+  echo "  5) Atur dosen / peran  (pembimbing, penguji, ketua prodi, dekan)"
   echo "  0) Keluar"
   read -r -p "Pilihan: " p
   case "$p" in
     1) d=$(pilih_dokumen); untuk_dokumen buat_pdf  "$d";;
-    2) d=$(pilih_dokumen); untuk_dokumen buat_word "$d";;
-    3) d=$(pilih_dokumen); untuk_dokumen buat_pdf "$d"; untuk_dokumen buat_word "$d";;
-    4) d=$(pilih_dokumen); if [ "$d" = semua ]; then for x in "${DOKUMEN[@]}"; do buka_hasil "$x"; done; elif [ "$d" = contoh ]; then for x in "${CONTOH[@]}"; do buka_hasil "$x"; done; else buka_hasil "$d"; fi;;
-    5) cek_alat;;
-    6) bersih;;
-    7) python3 "$ROOT/00-common/atur_peran.py";;
+    2) d=$(pilih_dokumen); if [ "$d" = semua ]; then for x in "${DOKUMEN[@]}"; do buka_hasil "$x"; done; elif [ "$d" = contoh ]; then for x in "${CONTOH[@]}"; do buka_hasil "$x"; done; else buka_hasil "$d"; fi;;
+    3) cek_alat;;
+    4) bersih;;
+    5) python3 "$ROOT/00-common/atur_peran.py";;
     0|q|Q) echo "Sampai jumpa."; exit 0;;
     *) gagal "pilihan tidak dikenal";;
   esac

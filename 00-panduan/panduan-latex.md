@@ -8,9 +8,9 @@ subtitle: "Program Studi Rekayasa Sistem Komputer, Fakultas Teknik, Universitas 
 Semua dokumen (proposal, seminar hasil, skripsi, formulir judul) ditulis dalam **LaTeX**. Dari satu sumber yang sama Anda bisa menghasilkan:
 
 - **PDF** (tata letak sesuai pedoman), dan
-- **Word (.docx)** (untuk diedit atau diserahkan dalam format Word).
+- **Word (.docx)** siap pakai yang disediakan di `00-output/` (untuk diedit atau diserahkan dalam format Word).
 
-Anda **cukup mengedit berkas `.tex`**. PDF dan Word dibuat otomatis lewat menu, tidak perlu diatur ulang margin, spasi, atau nomor halamannya.
+Anda **cukup mengedit berkas `.tex`**. PDF dibuat otomatis lewat menu, tidak perlu diatur ulang margin, spasi, atau nomor halamannya.
 
 ## Struktur folder
 
@@ -18,7 +18,7 @@ Folder berawalan `00-` bukan tahapan skripsi; `01` sampai `04` adalah tahapan ya
 
 ```
 Panduan-Skripsi-RSKUMButon/
-├── menu.sh                menu pembuat PDF dan Word
+├── menu.sh                menu pembuat PDF
 ├── 00-panduan/            panduan ini
 ├── 00-pedoman/            pedoman.pdf (hanya PDF)
 ├── 00-contoh/             contoh terisi: proposal, seminar-hasil, skripsi (+ output/)
@@ -31,7 +31,6 @@ Panduan-Skripsi-RSKUMButon/
 │   ├── dosen.tex                      daftar dosen
 │   └── peran.tex                      pembimbing, penguji, dan seterusnya
 ├── 00-gambar/             logo dan gambar
-├── 00-word/               mesin konversi ke Word
 ├── 01-formulir/           tahap 1: formulir pengajuan judul (formulir.tex)
 ├── 02-proposal/           tahap 2: proposal (proposal.tex, bab/)
 ├── 03-seminar-hasil/      tahap 3: seminar hasil (struktur sama dengan skripsi)
@@ -51,12 +50,11 @@ Dibutuhkan lima program (`biber` ikut terpasang bersama MacTeX). Periksa dengan:
 | Program | Fungsi | Cara memasang (macOS) |
 |---|---|---|
 | `xelatex`, `latexmk`, `biber` | membuat PDF (`biber` menyusun daftar pustaka dari `pustaka.bib`) | `brew install --cask mactex-no-gui` |
-| `pandoc` | konversi ke Word | `brew install pandoc` |
-| `python3` | pendukung konversi Word | bawaan macOS |
+| `python3` | mengatur nama dosen (`./menu.sh peran`) | bawaan macOS |
 
 Font **Times New Roman** dipakai bila tersedia; jika tidak, otomatis diganti *TeX Gyre Termes* yang bentuknya serupa.
 
-# 3. Cara membuat PDF dan Word
+# 3. Cara membuat PDF
 
 ## Lewat menu (disarankan)
 
@@ -65,15 +63,13 @@ cd panduan-skripsi
 ./menu.sh
 ```
 
-Pilih: **1** Buat PDF, **2** Convert ke Word, **3** keduanya, lalu pilih dokumen. Hasil ada di folder `00-output/`.
+Pilih: **1** Buat PDF, lalu pilih dokumen. Hasil ada di folder `00-output/`.
 
 ## Lewat perintah langsung
 
 ```bash
 ./menu.sh pdf skripsi        # PDF skripsi
-./menu.sh word skripsi       # Word skripsi
-./menu.sh semua skripsi      # PDF + Word
-./menu.sh semua semua        # semua dokumen
+./menu.sh pdf semua          # semua dokumen
 ./menu.sh buka skripsi       # membuka hasilnya
 ./menu.sh bersih             # menghapus berkas sementara
 ```
@@ -209,7 +205,7 @@ Akurasi (\%) & 95,2 & Baik \\
 \end{singlespace}
 ```
 
-- Lebar kolom ditulis sebagai pecahan `\linewidth` (jumlah sekitar 0,9–1,0). Lebar ini ikut terbaca saat konversi ke Word.
+- Lebar kolom ditulis sebagai pecahan `\linewidth` (jumlah sekitar 0,9–1,0).
 - Isi tabel diketik satu spasi (`singlespace`).
 - Angka desimal memakai **koma** (`12,5`), ribuan dengan titik (`1.000`).
 - Sebut tabel di teks: "Tabel 1 menunjukkan ...".
@@ -326,10 +322,6 @@ Berkas `bab/04-daftar-pustaka.tex` (proposal) atau `bab/06-daftar-pustaka.tex` (
 ```
 
 Pada template, berkas ini juga berisi penjelasan dan baris `\nocite{...}` agar semua jenis contoh tampil. **Hapus penjelasan dan baris `\nocite` itu pada naskah Anda**, sehingga daftar pustaka hanya memuat sumber yang benar-benar dikutip. Untuk memaksa satu sumber tampil tanpa dikutip, gunakan `\nocite{kunci}`.
-
-### Di Word
-
-`./menu.sh word ...` memakai `pustaka.bib` yang sama (lewat `pandoc --citeproc` dan gaya APA 7 di `00-word/apa.csl`), sehingga sitasi dan daftar pustaka di Word otomatis sama dengan versi PDF. Catatan: pada sitasi `\textcite` dua penulis, versi Word menulis tanda `&` (AlQahtani & Alhassany (2013)), sedangkan versi PDF menulis kata *dan*; selebihnya sama. Kunci sitasi tidak tampil di Word; yang tampil teks hasilnya.
 
 ## 5.9 Lampiran
 
@@ -449,21 +441,14 @@ Anda tidak perlu mengatur hal-hal ini secara manual:
 
 Proposal, seminar hasil, dan skripsi memakai ukuran, sampul, halaman depan, dan gaya bab yang sama; yang berbeda hanya tulisannya. Judul bab ditulis "BAB I" di tengah lalu judulnya, dan **setiap bab mulai di halaman baru** (halaman pertama bab bernomor tengah bawah, halaman berikutnya kanan atas).
 
-# 10. Konversi ke Word
+# 10. Berkas Word siap pakai
 
-Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perhatikan:
+Berkas `.docx` di `00-output/` (dan `00-contoh/output/`) adalah salinan siap pakai dari dokumen PDF. Perhatikan:
 
 1. Saat membuka di Word, pilih **Yes/Ya** bila ditanya memperbarui field. Ini mengisi **Daftar Isi, Daftar Tabel, dan Daftar Gambar**. Jika belum terisi: klik kanan tulisan di daftar → *Update Field* → *Update entire table*.
 2. Pengaturan gaya ada di *Styles* Word (Heading 1–4, Body Text, Table Caption, dst.); mengubah gaya akan mengubah seluruh dokumen.
 3. Jangan menghapus *section break* antar bab di skripsi dan seminar hasil; di situlah aturan nomor halaman per bab bekerja.
-4. **Edit isi sebaiknya tetap di `.tex`**, lalu konversi ulang. Mengedit langsung di Word hanya untuk penyesuaian akhir; perubahan di Word tidak kembali ke `.tex`.
-
-**Batasan konversi** (agar hasil Word tetap rapi):
-
-- Gunakan lingkungan standar yang ada di contoh (`longtable`, `figure`, `enumerate`, `daftarpustaka`, dst.).
-- Hindari spesifikasi kolom berbentuk `>{\centering\arraybackslash}p{...}` pada tabel isi; isi sel bisa hilang di Word. Gunakan kolom `c`, `l`, `r`, atau `p{...}`.
-- Gambar yang dibuat dengan kode (TikZ/PGF) tidak ikut ke Word; simpan sebagai `.png` terlebih dahulu.
-- Perintah pengatur tata letak murni (`\vspace`, `\hspace`, `\newpage`) tidak berpengaruh di Word. Gunakan lingkungan khusus di bawah ini.
+4. Berkas Word tidak dibuat ulang oleh `menu.sh`. Sumber utama tetap `.tex`; perubahan yang dibuat langsung di Word tidak kembali ke `.tex`.
 
 # 11. Lingkungan khusus yang tersedia
 
@@ -491,11 +476,9 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 | Kalimat tiba-tiba terpotong | ada `%` tanpa `\` di baris itu. Tulis `\%`. |
 | Sitasi tampil `?` atau `[kunci]`; daftar pustaka kosong | kunci salah ketik, atau `biber` belum berjalan. Kompilasi dengan `latexmk`/`./menu.sh` (bukan satu kali `xelatex`). Periksa pesan `biber` (`WARN - I didn't find a database entry for ...`) dan ejaan kunci di `00-common/pustaka.bib`. |
 | Daftar isi kosong / nomor halaman salah | jalankan pembuatan PDF sekali lagi (daftar butuh dua putaran; menu sudah mengulang otomatis). |
-| Daftar isi di Word hanya tulisan "Klik kanan..." | belum diperbarui; lihat bagian 10 butir 1. |
+| Daftar isi di Word hanya tulisan "Klik kanan..." | belum diperbarui; lihat bagian 10. |
 | Gambar tidak muncul | periksa nama dan lokasi berkas di `00-gambar/`; nama berkas peka huruf besar-kecil. |
-| Teks tabel hilang di Word | hindari `>{\centering...}`, lihat bagian 10. |
 | Menu: "gagal membuat PDF" | buka `build/<dokumen>-latex.log`; galat pertama diawali tanda `!`. |
-| Menu: "gagal membuat Word" | buka `build/<dokumen>-word.log`. |
 | Hasil tidak berubah | pastikan berkas yang diedit adalah berkas bab yang dipanggil `\input`, lalu buat ulang dokumen. |
 
 # 13. Ringkasan alur kerja
@@ -503,5 +486,5 @@ Setelah memilih **Convert ke Word**, berkas `.docx` muncul di `00-output/`. Perh
 1. Isi sampul dan data (bagian 6); atur dosen/peran (`./menu.sh peran`).
 2. Tulis isi tiap bab di `bab/NN-....tex` (bagian 5).
 3. Simpan gambar di `00-gambar/`.
-4. `./menu.sh semua skripsi` → periksa `00-output/skripsi.pdf` dan `00-output/skripsi.docx`.
+4. `./menu.sh pdf skripsi` → periksa `00-output/skripsi.pdf`.
 5. Perbaiki di `.tex`, ulangi langkah 4 sampai siap dikumpulkan.

@@ -27,13 +27,12 @@ acuan penulisan: sitasi gaya APA di kalimat, tabel dan gambar bernomor per bab, 
 Dari folder utama:
 
 ```bash
-./menu.sh semua contoh      # PDF + Word ketiganya  -> contoh/hasil/
+./menu.sh pdf contoh         # PDF ketiganya  -> 00-contoh/output/
 ./menu.sh pdf contoh-skripsi
-./menu.sh word contoh-proposal
 ./menu.sh buka contoh
 ```
 
-Atau menu interaktif `./menu.sh`, pilih dokumen nomor 7.
+Atau menu interaktif `./menu.sh`, pilih dokumen nomor 6.
 Pada berkas Word, buka lalu pilih *Ya/Yes* bila diminta memperbarui field agar daftar isi terisi.
 
 ## Mengganti gambar contoh

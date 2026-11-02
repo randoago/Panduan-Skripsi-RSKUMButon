@@ -1,6 +1,6 @@
 # Panduan Skripsi — Rekayasa Sistem Komputer, FT UM Buton
 
-Template dan panduan penulisan skripsi untuk mahasiswa **Program Studi Rekayasa Sistem Komputer (RSK), Fakultas Teknik, Universitas Muhammadiyah Buton**. Semua dokumen ditulis dalam **LaTeX** dan dari satu sumber yang sama dapat dibuat menjadi **PDF**.
+Template dan panduan penulisan skripsi untuk mahasiswa **Program Studi Rekayasa Sistem Komputer (RSK), Fakultas Teknik, Universitas Muhammadiyah Buton**. Semua dokumen ditulis dalam **LaTeX** dan hasilnya berupa **PDF** yang tata letaknya sesuai pedoman. Berkas **Word (.docx)** siap pakai juga disediakan di `00-output/`.
 
 > **Mulai cepat:** baca [Pedoman](00-pedoman/pedoman.pdf), lihat [contoh skripsi terisi](00-contoh/output/skripsi.pdf), lalu edit template tahap Anda. Cara memasang dan memakai ada di [Panduan LaTeX](00-panduan/panduan-latex.pdf).
 
@@ -35,15 +35,15 @@ Folder berawalan `00-` bukan tahapan, melainkan pendukung (pedoman, panduan, con
 | Program | Fungsi | Pasang |
 | --- | --- | --- |
 | `xelatex`, `latexmk`, `biber` | membuat PDF dan daftar pustaka | `brew install --cask mactex-no-gui` |
-| `pandoc`, `python3` | membuat Word | `brew install pandoc python3` |
+| `python3` | mengatur nama dosen (`./menu.sh peran`) | bawaan macOS |
 
 **2. Jalankan menu:**
 
 ```bash
 ./menu.sh                      # menu interaktif
 ./menu.sh pdf proposal         # buat PDF
-./menu.sh semua semua          # PDF 
-./menu.sh semua contoh         # PDF
+./menu.sh pdf semua            # PDF semua template
+./menu.sh pdf contoh           # PDF tiga dokumen contoh
 ./menu.sh peran                # atur pembimbing, penguji, ketua prodi, dekan
 ./menu.sh buka proposal        # buka hasilnya
 ./menu.sh bersih               # hapus berkas sementara
@@ -51,7 +51,7 @@ Folder berawalan `00-` bukan tahapan, melainkan pendukung (pedoman, panduan, con
 
 Pilihan dokumen: `proposal`, `formulir`, `seminar-hasil`, `skripsi`, `semua`, `contoh` (atau `contoh-proposal`, `contoh-hasil`, `contoh-skripsi`). Hasil ada di `00-output/`; hasil dokumen contoh di `00-contoh/output/`.
 
-**3. Edit isi** hanya pada berkas `.tex` di folder `bab/` tiap tahap, lalu buat ulang PDF a. Ingin menambah bab? Buat `bab/NN-nama.tex`, lalu `\input{bab/NN-nama}` di berkas utama.
+**3. Edit isi** hanya pada berkas `.tex` di folder `bab/` tiap tahap, lalu buat ulang PDF. Ingin menambah bab? Buat `bab/NN-nama.tex`, lalu `\input{bab/NN-nama}` di berkas utama.
 
 Bisa juga memakai editor LaTeX (misalnya VS Code dengan LaTeX Workshop): buka berkas utama (`02-proposal/proposal.tex`, dan seterusnya) lalu tekan *Build*. Setiap folder sudah punya `latexmkrc` yang memilih XeLaTeX otomatis.
 
@@ -61,14 +61,14 @@ Bisa juga memakai editor LaTeX (misalnya VS Code dengan LaTeX Workshop): buka be
 00-pedoman/        pedoman.pdf (aturan penulisan skripsi, hanya PDF)
 00-panduan/        panduan-latex (.md, .pdf, .docx): cara memakai dan mengedit
 00-contoh/         proposal, seminar hasil, dan skripsi contoh terisi (data fiktif) + output/
-00-output/         hasil PDF dan Word dari template
+00-output/         hasil PDF dan Word (.docx) siap pakai
 00-common/         gaya bersama, pustaka.bib, daftar dosen (dosen.tex), peran (peran.tex)
 00-gambar/         logo dan gambar contoh (diagram alat, rangkaian, prototipe)
 01-formulir/       tahap 1
 02-proposal/       tahap 2
 03-seminar-hasil/  tahap 3
 04-skripsi/        tahap 4 (isi per bab di bab/)
-menu.sh            menu pembuat PDF 
+menu.sh            menu pembuat PDF
 ```
 
 ## Pertanyaan yang sering muncul
@@ -76,5 +76,4 @@ menu.sh            menu pembuat PDF
 - **Word kosong pada daftar isi?** Daftar isi, tabel, gambar, dan lampiran di Word berupa *field*. Pilih **Ya/Yes** saat Word menawarkan pembaruan, atau tekan Ctrl+A lalu F9.
 - **Mengganti nama dosen?** Jalankan `./menu.sh peran`, atau edit `00-common/peran.tex`. Daftar dosen ada di `00-common/dosen.tex`.
 - **Apakah data pada contoh asli?** Tidak. Nama, NPM, angka hasil, dan peran dosen di `00-contoh/` fiktif dan hanya memperagakan format.
-- **Isi tabel hilang saat jadi Word?** Hindari `>{\centering}p{..}` pada tabel; pakai kolom `c` atau `p{..}`.
 - **Bab IV Pedoman** (tata cara pengajuan, bimbingan, seminar, ujian) bersifat umum; ikuti ketentuan terbaru Program Studi.
