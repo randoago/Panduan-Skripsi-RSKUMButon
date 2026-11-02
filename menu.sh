@@ -70,6 +70,7 @@ buat_word() {  # $1 = nama dokumen
   local d="$1" b h
   b=$(berkas "$d"); h=$(hasildir "$d")
   info "Word ← $d  ($(judul "$d"))"
+  [ -f "$ROOT/00-word/buat_word.py" ] || { gagal "pembuat Word (00-word/) tidak ada di paket ini; pakai berkas .docx siap pakai di 00-output/ dan 00-contoh/output/"; return 1; }
   mkdir -p "$ROOT/$h"
   if python3 "$ROOT/00-word/buat_word.py" "$d" -o "$ROOT/$h/$b.docx" >/dev/null 2>"$ROOT/build/$d-word.log"; then
     ok "$h/$b.docx"

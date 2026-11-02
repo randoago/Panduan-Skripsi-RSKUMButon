@@ -18,3 +18,6 @@ build/
 *.run.xml
 *.bcf-SAVE-ERROR
 *.bbl-SAVE-ERROR
+
+# pembuat Word (pandoc) tidak dibagikan; hanya LaTeX dan hasil Word yang dipublikasikan
+00-word/
