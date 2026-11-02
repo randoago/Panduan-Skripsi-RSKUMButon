@@ -24,7 +24,7 @@ Folder berawalan `00-` bukan tahapan, melainkan pendukung (pedoman, panduan, con
 | Judul bab | `BAB I` + judul (14 pt tebal, tengah), tiap bab di halaman baru; subbab sampai tiga tingkat |
 | Nomor halaman | Sampul, persetujuan, pengesahan, keaslian: tanpa nomor; abstrak sampai daftar lampiran: romawi; isi: arab |
 | Tabel dan gambar | Nomor per bab (Tabel 2.1, Gambar 3.2; lampiran L1.1); judul tabel di atas, judul gambar di bawah |
-| Daftar isi, tabel, gambar, lampiran, singkatan | Dibuat otomatis |
+| Daftar isi, tabel, gambar, lampiran | Dibuat otomatis (daftar singkatan diisi manual, opsional) |
 | Sitasi dan daftar pustaka | **APA edisi ke-7**. Catat sumber sekali di `00-common/pustaka.bib`, panggil dengan `\parencite{kunci}` atau `\textcite{kunci}`; daftar pustaka tersusun sendiri |
 | Nama dosen | Pembimbing, penguji, Ketua Prodi, dan Dekan diatur sekali, lalu dipakai di semua dokumen |
 
