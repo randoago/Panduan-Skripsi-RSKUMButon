@@ -1,6 +1,6 @@
 # Panduan Skripsi — Rekayasa Sistem Komputer, FT UM Buton
 
-Template dan panduan penulisan skripsi untuk mahasiswa **Program Studi Rekayasa Sistem Komputer (RSK), Fakultas Teknik, Universitas Muhammadiyah Buton**. Semua dokumen ditulis dalam **LaTeX** dan dari satu sumber yang sama dapat dibuat menjadi **PDF** maupun **Word (.docx)**.
+Template dan panduan penulisan skripsi untuk mahasiswa **Program Studi Rekayasa Sistem Komputer (RSK), Fakultas Teknik, Universitas Muhammadiyah Buton**. Semua dokumen ditulis dalam **LaTeX** dan dari satu sumber yang sama dapat dibuat menjadi **PDF**.
 
 > **Mulai cepat:** baca [Pedoman](00-pedoman/pedoman.pdf), lihat [contoh skripsi terisi](00-contoh/output/skripsi.pdf), lalu edit template tahap Anda. Cara memasang dan memakai ada di [Panduan LaTeX](00-panduan/panduan-latex.pdf).
 
@@ -42,9 +42,8 @@ Folder berawalan `00-` bukan tahapan, melainkan pendukung (pedoman, panduan, con
 ```bash
 ./menu.sh                      # menu interaktif
 ./menu.sh pdf proposal         # buat PDF
-./menu.sh word skripsi         # buat Word
-./menu.sh semua semua          # PDF + Word semua template
-./menu.sh semua contoh         # PDF + Word tiga dokumen contoh
+./menu.sh semua semua          # PDF 
+./menu.sh semua contoh         # PDF
 ./menu.sh peran                # atur pembimbing, penguji, ketua prodi, dekan
 ./menu.sh buka proposal        # buka hasilnya
 ./menu.sh bersih               # hapus berkas sementara
@@ -52,7 +51,7 @@ Folder berawalan `00-` bukan tahapan, melainkan pendukung (pedoman, panduan, con
 
 Pilihan dokumen: `proposal`, `formulir`, `seminar-hasil`, `skripsi`, `semua`, `contoh` (atau `contoh-proposal`, `contoh-hasil`, `contoh-skripsi`). Hasil ada di `00-output/`; hasil dokumen contoh di `00-contoh/output/`.
 
-**3. Edit isi** hanya pada berkas `.tex` di folder `bab/` tiap tahap, lalu buat ulang PDF atau Word. Ingin menambah bab? Buat `bab/NN-nama.tex`, lalu `\input{bab/NN-nama}` di berkas utama.
+**3. Edit isi** hanya pada berkas `.tex` di folder `bab/` tiap tahap, lalu buat ulang PDF a. Ingin menambah bab? Buat `bab/NN-nama.tex`, lalu `\input{bab/NN-nama}` di berkas utama.
 
 Bisa juga memakai editor LaTeX (misalnya VS Code dengan LaTeX Workshop): buka berkas utama (`02-proposal/proposal.tex`, dan seterusnya) lalu tekan *Build*. Setiap folder sudah punya `latexmkrc` yang memilih XeLaTeX otomatis.
 
@@ -65,12 +64,11 @@ Bisa juga memakai editor LaTeX (misalnya VS Code dengan LaTeX Workshop): buka be
 00-output/         hasil PDF dan Word dari template
 00-common/         gaya bersama, pustaka.bib, daftar dosen (dosen.tex), peran (peran.tex)
 00-gambar/         logo dan gambar contoh (diagram alat, rangkaian, prototipe)
-00-word/           pembuat Word (buat_word.py) dan filter pandoc (filter.lua)
 01-formulir/       tahap 1
 02-proposal/       tahap 2
 03-seminar-hasil/  tahap 3
 04-skripsi/        tahap 4 (isi per bab di bab/)
-menu.sh            menu pembuat PDF dan Word
+menu.sh            menu pembuat PDF 
 ```
 
 ## Pertanyaan yang sering muncul
@@ -79,5 +77,4 @@ menu.sh            menu pembuat PDF dan Word
 - **Mengganti nama dosen?** Jalankan `./menu.sh peran`, atau edit `00-common/peran.tex`. Daftar dosen ada di `00-common/dosen.tex`.
 - **Apakah data pada contoh asli?** Tidak. Nama, NPM, angka hasil, dan peran dosen di `00-contoh/` fiktif dan hanya memperagakan format.
 - **Isi tabel hilang saat jadi Word?** Hindari `>{\centering}p{..}` pada tabel; pakai kolom `c` atau `p{..}`.
-- **Menjalankan pandoc sendiri?** Jangan isi `TEXINPUTS`; `menu.sh` dan `buat_word.py` sudah mengaturnya.
 - **Bab IV Pedoman** (tata cara pengajuan, bimbingan, seminar, ujian) bersifat umum; ikuti ketentuan terbaru Program Studi.
