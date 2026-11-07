@@ -28,6 +28,8 @@
 \RequirePackage{chngcntr}
 \RequirePackage{caption}
 \RequirePackage{adjustbox}
+\RequirePackage{eso-pic}
+\RequirePackage{tikz}
 \RequirePackage{amsmath}
 \RequirePackage{unicode-math}
 \IfFontExistsTF{texgyretermes-math.otf}{\setmathfont{texgyretermes-math.otf}}{}   % rumus serasi dengan Times New Roman
@@ -91,3 +93,10 @@
 % ---------- Nama pada lembar persetujuan/pengesahan: selalu satu baris ----------
 % Bila nama lebih lebar dari kolomnya, ukurannya diperkecil seperlunya (tidak pernah pindah baris).
 \newcommand{\satubaris}[1]{\adjustbox{max width=\linewidth}{\mbox{#1}}}
+% Garis bawah nama dosen (tanda tangan): rapat ke teks, lebih rapat daripada \underline bawaan
+\newcommand{\garisnama}[1]{\setbox0\hbox{#1}\copy0\llap{\vrule width\wd0 height-1.6pt depth2pt}}
+
+% ---------- Logo UM Buton pudar sebagai latar belakang satu halaman (halaman pengesahan) ----------
+% Dipanggil di awal halaman:  \latarlogo{9cm}{0.12}   (lebar logo, tingkat kepekatan 0-1). Hanya berlaku di halaman itu.
+\newcommand{\latarlogo}[2]{%
+  \AddToShipoutPictureBG*{\AtPageCenter{\makebox(0,0){\begin{tikzpicture}\node[opacity=#2,inner sep=0pt]{\logo{#1}};\end{tikzpicture}}}}}

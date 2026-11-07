@@ -1,32 +1,58 @@
-% Halaman pengesahan (khusus skripsi)
+% Lembar pengesahan (khusus skripsi) -- logo UM Buton pudar sebagai latar belakang
+% Khusus halaman ini: area teks dilebarkan (margin kiri 3 cm, kanan 2 cm, atas 3 cm, bawah 2,5 cm) agar baris Kaprodi muat satu baris
+\newgeometry{left=3cm,right=2cm,top=3cm,bottom=2.5cm}
 \thispagestyle{empty}
+\latarlogo{11cm}{0.12}
 \begin{tengah}
-\textbf{HALAMAN PENGESAHAN}
+\textbf{LEMBAR PENGESAHAN}
 \end{tengah}
-\begin{ruang}{0.3}\end{ruang}
+\begin{ruang}{0.2}\end{ruang}
 \begin{tengah}
-\textbf{SKRIPSI}
-
 \textbf{ANALISIS KINERJA ALGORITMA PENJADWALAN PAKET PADA JARINGAN LTE MENGGUNAKAN SIMULATOR NS-3}
 
 Disusun dan diajukan oleh:
 
 \textbf{LA ODE CONTOH PRATAMA}
 
-\textbf{NPM 2201010001}
+\textbf{NPM : 2201010001}
 
-Telah dipertahankan dan disetujui oleh:
+Telah diuji dan dinyatakan lulus dalam ujian sarjana;
+
+Pada Tanggal, ...................... 2027
+
+Tim Penguji:
 \end{tengah}
-\begin{ruang}{0.2}\end{ruang}
 \begin{tanpagaris}\begin{tabelpusat}
-\begin{longtable}{@{}>{\centering\arraybackslash}p{0.48\linewidth}>{\centering\arraybackslash}p{0.48\linewidth}@{}}
-\textbf{Pembimbing I}\newline ~\newline ~\newline ~\newline \satubaris{\PembimbingI}\newline NIDN. \PembimbingInidn &
-\textbf{Pembimbing II}\newline ~\newline ~\newline ~\newline \satubaris{\PembimbingII}\newline NIDN. \PembimbingIInidn \\
-~ & ~ \\
-\textbf{Penguji I}\newline ~\newline ~\newline ~\newline \satubaris{\PengujiI}\newline NIDN. \PengujiInidn &
-\textbf{Penguji II}\newline ~\newline ~\newline ~\newline \satubaris{\PengujiII}\newline NIDN. \PengujiIInidn \\
-~ & ~ \\
-\textbf{Ketua Program Studi}\newline ~\newline ~\newline ~\newline \satubaris{\KetuaProdi}\newline NIDN. \KetuaProdinidn &
-\textbf{Dekan Fakultas Teknik}\newline ~\newline ~\newline ~\newline \satubaris{\Dekan}\newline NIDN. \Dekannidn \\
-\end{longtable}
+{\setlength{\tabcolsep}{0pt}\begin{longtable}{@{}p{0.05\linewidth}p{0.15\linewidth}p{0.50\linewidth}>{\centering\arraybackslash}p{0.19\linewidth}>{\centering\arraybackslash}p{0.11\linewidth}@{}}
+ & & & Tanda Tangan & Tanggal \\
+~\par ~\par 1. & ~\par ~\par Penguji I & ~\par ~\par \satubaris{\PengujiI} & ~\par ~\par ...................... & ~\par ~\par ............ \\
+~\par ~\par 2. & ~\par ~\par Penguji II & ~\par ~\par \satubaris{\PengujiII} & ~\par ~\par ...................... & ~\par ~\par ............ \\
+~\par ~\par 3. & ~\par ~\par Penguji III & ~\par ~\par \satubaris{\PengujiIII} & ~\par ~\par ...................... & ~\par ~\par ............ \\
+\end{longtable}}
 \end{tabelpusat}\end{tanpagaris}
+\begin{ruang}{0.4}\end{ruang}
+\begin{tanpagaris}\begin{tabelpusat}
+{\setlength{\tabcolsep}{0pt}\begin{longtable}{@{}>{\centering\arraybackslash}p{0.56\linewidth}>{\centering\arraybackslash}p{0.44\linewidth}@{}}
+\textbf{Pembimbing I} & \textbf{Pembimbing II} \\
+~ & ~ \\
+~ & ~ \\
+~ & ~ \\
+\satubaris{\garisnama{\textbf{\PembimbingI}}} & \satubaris{\garisnama{\textbf{\PembimbingII}}} \\
+\textbf{NIDN : \PembimbingInidn} & \textbf{NIDN : \PembimbingIInidn} \\
+\end{longtable}}
+\end{tabelpusat}\end{tanpagaris}
+\begin{tengah}
+Mengetahui,
+\end{tengah}
+\begin{tanpagaris}\begin{tabelpusat}
+{\setlength{\tabcolsep}{0pt}\begin{longtable}{@{}>{\centering\arraybackslash}p{0.56\linewidth}>{\centering\arraybackslash}p{0.44\linewidth}@{}}
+\satubaris{Ketua Program Studi Rekayasa Sistem Komputer} & \satubaris{Dekan Fakultas Teknik} \\
+\satubaris{Universitas Muhammadiyah Buton} & \satubaris{Universitas Muhammadiyah Buton} \\
+~ & ~ \\
+~ & ~ \\
+~ & ~ \\
+\satubaris{\garisnama{\textbf{\KetuaProdi}}} & \satubaris{\garisnama{\textbf{\Dekan}}} \\
+\textbf{NIDN : \KetuaProdinidn} & \textbf{NIDN : \Dekannidn} \\
+\end{longtable}}
+\end{tabelpusat}\end{tanpagaris}
+\restoregeometry

@@ -7,6 +7,7 @@ from pathlib import Path
 COMMON = Path(__file__).resolve().parent
 PERAN = [("PembimbingI", "Pembimbing I"), ("PembimbingII", "Pembimbing II"),
          ("PengujiI", "Penguji I"), ("PengujiII", "Penguji II"),
+         ("PengujiIII", "Penguji III"),
          ("KetuaProdi", "Ketua Program Studi"), ("Dekan", "Dekan Fakultas Teknik")]
 TITIK = "…………………"
 TITIK_N = "…………………"

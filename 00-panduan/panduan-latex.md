@@ -359,7 +359,11 @@ Satu dosen memiliki dua makro: `\dsn` + kunci (nama dan gelar) dan `\nidn` + kun
 | 5 | Didin Adri, S.Si., M.Sc | 0930088802 | Didin |
 | 6 | Muhammad Hibrian Wiwi, S.T., M.Kom | 0930129003 | Hibrian |
 | 7 | Muhammad Abdur Rasyid Asruddin, S.T., M.Kom | 6641774675130242 | Rasyid |
-| 8 | Agusman, S.T., M.M (Dekan Fakultas Teknik) | 0917088206 | Agusman |
+| 8 | Ir. LM Fajar Israwan, S.Kom., M.Kom., M.M | (belum diisi) | Fajar |
+| 9 | Ir. Muh. Sayfullah.S, S.T., M.T | (belum diisi) | Sayfullah |
+| 10 | Agusman, S.T., M.M (Dekan Fakultas Teknik) | 0917088206 | Agusman |
+
+Penguji I, II, dan III dipanggil lewat kunci dosen ini, mis. `\newcommand{\PengujiI}{\dsnFajar}\newcommand{\PengujiInidn}{\nidnFajar}` di `peran.tex`, atau cukup pilih nomornya lewat `./menu.sh peran`. Nama penguji pada halaman pengesahan lalu terisi otomatis.
 
 Contoh pemakaian kunci: untuk Awaluddin makro namanya `\dsnAwaluddin` dan makro NIDN-nya `\nidnAwaluddin`.
 
@@ -367,7 +371,7 @@ Dekan Fakultas Teknik sudah terisi tetap (Agusman, S.T., M.M) di `peran.tex`. Bi
 
 ## 7.2 Daftar peran
 
-Ada enam peran. Nama makronya dipakai di berkas `.tex`, dan di menu muncul dengan nama biasa:
+Ada tujuh peran. Nama makronya dipakai di berkas `.tex`, dan di menu muncul dengan nama biasa:
 
 | Peran di menu | Makro nama | Makro NIDN | Dipakai di |
 |---|---|---|---|
@@ -375,6 +379,7 @@ Ada enam peran. Nama makronya dipakai di berkas `.tex`, dan di menu muncul denga
 | Pembimbing II | `\PembimbingII` | `\PembimbingIInidn` | lembar persetujuan, pengesahan, kata pengantar |
 | Penguji I | `\PengujiI` | `\PengujiInidn` | halaman pengesahan, kata pengantar |
 | Penguji II | `\PengujiII` | `\PengujiIInidn` | halaman pengesahan, kata pengantar |
+| Penguji III | `\PengujiIII` | `\PengujiIIInidn` | halaman pengesahan |
 | Ketua Program Studi | `\KetuaProdi` | `\KetuaProdinidn` | halaman pengesahan, kata pengantar |
 | Dekan Fakultas Teknik | `\Dekan` | `\Dekannidn` | halaman pengesahan, kata pengantar |
 
@@ -388,7 +393,7 @@ Peran yang belum dipilih tampil sebagai titik-titik isian (……) sehingga dapa
 ./menu.sh peran
 ```
 
-(atau menu nomor **7** pada menu interaktif). Program menampilkan daftar dosen bernomor, lalu menanyakan satu per satu: Pembimbing I, Pembimbing II, Penguji I, Penguji II, Ketua Program Studi, dan Dekan. Ketik nomor dosen, tekan Enter untuk membiarkan pilihan yang ada, atau ketik `0` untuk mengosongkan. Berkas `00-common/peran.tex` ditulis ulang otomatis. Setelah itu buat ulang dokumen (menu PDF/Word).
+(atau menu nomor **5** pada menu interaktif). Program menampilkan daftar dosen bernomor, lalu menanyakan satu per satu: Pembimbing I, Pembimbing II, Penguji I, Penguji II, Penguji III, Ketua Program Studi, dan Dekan. Ketik nomor dosen, tekan Enter untuk membiarkan pilihan yang ada, atau ketik `0` untuk mengosongkan. Berkas `00-common/peran.tex` ditulis ulang otomatis. Setelah itu buat ulang dokumen (menu PDF).
 
 **Cara manual:** edit `00-common/peran.tex`. Isi dengan kunci dosen dari tabel di atas. Contoh, Pembimbing I = Muhammad Awaluddin dan Pembimbing II = Darmawan:
 
